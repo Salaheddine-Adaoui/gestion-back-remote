@@ -150,4 +150,8 @@ public class userController {
 		return ResponseEntity.badRequest().body("user not found");
 	}
 	
+	@GetMapping("test")
+	String sayHello() {
+		return "hello world";
+	}
 }

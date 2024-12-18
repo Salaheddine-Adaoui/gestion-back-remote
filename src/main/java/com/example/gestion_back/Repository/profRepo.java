@@ -11,5 +11,4 @@ import com.example.gestion_back.Entities.Professeur;
 public interface profRepo extends JpaRepository<Professeur,String> {
           Optional<Professeur> findByCode(String code);
          
-          
 }

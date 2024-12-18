@@ -3,6 +3,7 @@ package com.example.gestion_back.Services;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class adminService {
 	private PasswordEncoder bCryptPasswordEncod;
 	
 	
-	// creation de prof avec creation auto de compte
+	// creation de admin avec creation auto de compte 
 	public String saveAdmin(adminDto admindto) throws IOException {
 		
 		Compte c=new Compte();
@@ -54,6 +55,7 @@ public class adminService {
 		return "succes";
 	}
 		
+	// update admin 
 	public String updateProf(Long id,adminDto admindto) throws IOException {
 			
 		    Optional<Admin> admin=adminrepo.findById(id);
@@ -81,7 +83,7 @@ public class adminService {
 			return "failed";
 		}
 	
-	
+	// find admin by id 
 	public Map<String,Object> findAdmin(Long id) {
 		HashMap<String, Object> map=new HashMap<>();
 		Optional<Admin> admin=adminrepo.findById(id);
@@ -98,8 +100,13 @@ public class adminService {
 		return map;
 	}
 	
+	// find all admins
+	public List<Admin> allProf(){
+		return adminrepo.findAll();
+	}
 	
 	
+	// delete admin
 	public String deleteAdmin(Long id) {
 		
         Optional<Admin> admin=adminrepo.findById(id);
