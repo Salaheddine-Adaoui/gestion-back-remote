@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.gestion_back.Entities.Professeur;
 
 @Repository
-public interface profRepo extends JpaRepository<Professeur,Long> {
+public interface profRepo extends JpaRepository<Professeur,String> {
           Optional<Professeur> findByCode(String code);
          
           

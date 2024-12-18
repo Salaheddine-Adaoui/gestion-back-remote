@@ -33,9 +33,6 @@ import com.example.gestion_back.Services.profService;
 import com.example.gestion_back.Services.userServices;
 
 
-
-
-
 @RestController
 public class userController {
 	
