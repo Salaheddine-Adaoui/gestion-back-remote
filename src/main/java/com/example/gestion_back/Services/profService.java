@@ -2,6 +2,9 @@ package com.example.gestion_back.Services;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.gestion_back.Dto.profDto;
+import com.example.gestion_back.Entities.Admin;
 import com.example.gestion_back.Entities.Compte;
 import com.example.gestion_back.Entities.Professeur;
 import com.example.gestion_back.Repository.profRepo;
@@ -53,6 +57,7 @@ public class profService {
 		return "succes";
 	}
 	
+	
 	public String updateProf(String code,profDto profdto) throws IOException {
 		
 		Optional<Professeur> prof=profrepo.findByCode(code);
@@ -95,4 +100,23 @@ public class profService {
 		return "failed";
 	}
 	
+	public Map<String,Object> findAdmin(String code) {
+		HashMap<String, Object> map=new HashMap<>();
+		Optional<Professeur> prof=profrepo.findById(code);
+		if(prof.isPresent()) {
+			Professeur ad=prof.get();
+			Compte c=ad.getCompte();
+			
+			
+			map.put("prof",ad);
+			map.put("compte", c);
+			return map;
+		}
+		map.put("error", "ce code n'exist pas");
+		return map;
+	}
+	
+	public List<Professeur> allProf(){
+		return profrepo.findAll();
+	}
 }
