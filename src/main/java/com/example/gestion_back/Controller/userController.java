@@ -136,7 +136,7 @@ public class userController {
 	*/
 	
 	@GetMapping("user/findbyid/{id}")
-	public ResponseEntity<Object> findall(@PathVariable Long id){
+	public ResponseEntity<Object> findbuid(@PathVariable Long id){
 		Compte myuser=userserv.finduserbyid(id);
 		if(myuser!=null) {
 			return ResponseEntity.ok(myuser);

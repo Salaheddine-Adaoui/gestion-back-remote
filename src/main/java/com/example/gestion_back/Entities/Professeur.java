@@ -32,7 +32,7 @@ public class Professeur {
         name = "Enseigne",
         joinColumns = @JoinColumn(name = "prof_id", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "element_id"))
-    @JsonManagedReference
+    
     private List<Element> element;
 
     // Getters et Setters

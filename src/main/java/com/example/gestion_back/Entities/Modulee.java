@@ -11,21 +11,21 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Module {
+public class Modulee {
 	
     @Id
     private String code;
     private String nom;
 
     @OneToMany(mappedBy = "module")
+    @JsonManagedReference
     private List<Element> elements;
     
     @ManyToMany
     @JoinTable(
         name = "contenir",
-        joinColumns = @JoinColumn(name = "prof_id", nullable = false),
+        joinColumns = @JoinColumn(name = "module_id", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "filier_id"))
-    @JsonManagedReference
     private List<Filier> filier;
 
 }
