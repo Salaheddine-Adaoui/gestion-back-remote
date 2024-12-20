@@ -24,6 +24,6 @@ public class Filier {
     private List<Etudiant> etudiants;
 
     @ManyToMany(mappedBy = "filier")
-    private List<Module> modules;
+    private List<Modulee> modules;
 
 }
