@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @NoArgsConstructor
@@ -26,10 +27,11 @@ public class Element {
 
     @ManyToOne
     @JoinColumn(name="module_id")
-    @JsonBackReference
+   
     private Modulee module;
 
     @ManyToMany(mappedBy="element")
+    @JsonManagedReference
     private List<Professeur> professeur;
 
 }

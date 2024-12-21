@@ -101,7 +101,7 @@ public class adminService {
 	}
 	
 	// find all admins
-	public List<Admin> allProf(){
+	public List<Admin> allAdmins(){
 		return adminrepo.findAll();
 	}
 	

@@ -1,5 +1,7 @@
 package com.example.gestion_back.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +27,7 @@ public class Compte {
 	private Admin admin;
 	
 	@OneToOne(mappedBy="compte")
+    @JsonManagedReference
 	private Professeur prof;
 	
 }
