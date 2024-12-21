@@ -33,7 +33,7 @@ public class config {
         http
             .authorizeRequests(authorizeRequests ->
                 authorizeRequests
-                .requestMatchers("/auth","/newprof","/user/**","/newadmin").permitAll()
+                .requestMatchers("/auth","/newprof","/user/**","/newadmin","/allprof").permitAll()
                 //.requestMatchers("/user/hello").hasRole("CLIENT")
                 .anyRequest().authenticated() 
             )
