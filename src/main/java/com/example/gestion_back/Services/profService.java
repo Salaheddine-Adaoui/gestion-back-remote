@@ -135,6 +135,7 @@ public class profService {
 	        // Add Compte data (with the account ID)
 	        Compte compte = prof.getCompte();
 	        map.put("email", compte.getEmail());
+	        map.put("image", compte.getImage());
 	       
 	        
 	        resultList.add(map); // Add the map to the result list
