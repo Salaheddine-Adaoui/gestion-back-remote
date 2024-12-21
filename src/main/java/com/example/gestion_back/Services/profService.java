@@ -1,6 +1,7 @@
 package com.example.gestion_back.Services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,12 @@ public class profService {
 		Compte c=new Compte();
 		c.setEmail(profdto.getEmail());
 		c.setPassword(bCryptPasswordEncod.encode(profdto.getPassword()));
-		c.setImage(Base64.getEncoder().encodeToString(profdto.getFile().getBytes()));
+		if (profdto.getFile() != null && !profdto.getFile().isEmpty()) {
+		    c.setImage(Base64.getEncoder().encodeToString(profdto.getFile().getBytes()));
+		} else {
+		    // Si aucune image n'est fournie, définissez une valeur par défaut ou laissez null
+		    c.setImage(null);
+		}
 		c.setRole("PROF");
 		
 		Compte saved=userrepo.save(c);
@@ -116,7 +122,25 @@ public class profService {
 		return map;
 	}
 	
-	public List<Professeur> allProf(){
-		return profrepo.findAll();
+	public List<Map<String, Object>> findAllProf() {
+	    List<Map<String, Object>> resultList = new ArrayList<>();
+	    List<Professeur> professors = profrepo.findAll(); // Fetch all professors
+	    
+	    for (Professeur prof : professors) {
+	        HashMap<String, Object> map = new HashMap<>();
+	        
+	        // Add Professeur data
+	        map.put("prof", prof);
+	        
+	        // Add Compte data (with the account ID)
+	        Compte compte = prof.getCompte();
+	        map.put("email", compte.getEmail());
+	       
+	        
+	        resultList.add(map); // Add the map to the result list
+	    }
+	    
+	    return resultList;
 	}
+
 }

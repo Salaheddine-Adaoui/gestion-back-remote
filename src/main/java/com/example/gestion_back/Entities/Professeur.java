@@ -2,7 +2,7 @@ package com.example.gestion_back.Entities;
 
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -25,6 +25,7 @@ public class Professeur {
 
     @OneToOne
     @JoinColumn(name="compte_id")
+    @JsonBackReference
     private Compte compte;
     
     @ManyToMany
@@ -32,7 +33,7 @@ public class Professeur {
         name = "Enseigne",
         joinColumns = @JoinColumn(name = "prof_id", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "element_id"))
-    
+    @JsonBackReference
     private List<Element> element;
 
     // Getters et Setters

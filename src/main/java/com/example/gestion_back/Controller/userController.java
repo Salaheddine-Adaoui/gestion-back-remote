@@ -31,6 +31,8 @@ import com.example.gestion_back.Securite.jwtUtils;
 import com.example.gestion_back.Services.adminService;
 import com.example.gestion_back.Services.profService;
 import com.example.gestion_back.Services.userServices;
+import com.example.gestion_back.Entities.Professeur;
+import com.example.gestion_back.Entities.Admin;
 
 
 
@@ -116,6 +118,14 @@ public class userController {
 	@GetMapping("user/allusers")
 	public List<Compte> findall(){
 		return userserv.findall();
+	}
+	@GetMapping("allprofs")
+	public  List<Map<String, Object>> findallprofs(){
+		return profserv.findAllProf();
+	}
+	@GetMapping("alladmins")
+	public List<Admin> findalladmins(){
+		return adminserv.allAdmins();
 	}
 	
 	/*
