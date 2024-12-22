@@ -11,9 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.gestion_back.Dto.profDto;
-import com.example.gestion_back.Entities.Admin;
 import com.example.gestion_back.Entities.Compte;
 import com.example.gestion_back.Entities.Professeur;
 import com.example.gestion_back.Repository.profRepo;
@@ -44,7 +42,6 @@ public class profService {
 		if (profdto.getFile() != null && !profdto.getFile().isEmpty()) {
 		    c.setImage(Base64.getEncoder().encodeToString(profdto.getFile().getBytes()));
 		} else {
-		    // Si aucune image n'est fournie, définissez une valeur par défaut ou laissez null
 		    c.setImage(null);
 		}
 		c.setRole("PROF");
@@ -70,7 +67,6 @@ public class profService {
 		
 		if(prof.isPresent()) {
 			Professeur toupdate=prof.get();
-			toupdate.setCode(profdto.getCode());
 			toupdate.setNom(profdto.getNom());
 			toupdate.setPrenom(profdto.getPrenom());
 			toupdate.setSpecialite(profdto.getSpecialite());
@@ -78,15 +74,15 @@ public class profService {
 			Compte c=toupdate.getCompte();
 			c.setEmail(profdto.getEmail());
 			c.setPassword(bCryptPasswordEncod.encode(profdto.getPassword()));
-			c.setImage(Base64.getEncoder().encodeToString(profdto.getFile().getBytes()));
+			if (profdto.getFile() != null && !profdto.getFile().isEmpty()) {
+			    c.setImage(Base64.getEncoder().encodeToString(profdto.getFile().getBytes()));
+			} else {
+			    c.setImage(null);
+			}
 			c.setRole("PROF");
-			
 			Compte compteupdated=compterepo.save(c);
-			
 			toupdate.setCompte(compteupdated);
-			
 			profrepo.save(toupdate);
-			
 			return "succes";
 		}
 		
@@ -106,9 +102,9 @@ public class profService {
 		return "failed";
 	}
 	
-	public Map<String,Object> findAdmin(String code) {
+	public Map<String,Object> findProf(String code) {
 		HashMap<String, Object> map=new HashMap<>();
-		Optional<Professeur> prof=profrepo.findById(code);
+		Optional<Professeur> prof=profrepo.findByCode(code);
 		if(prof.isPresent()) {
 			Professeur ad=prof.get();
 			Compte c=ad.getCompte();
