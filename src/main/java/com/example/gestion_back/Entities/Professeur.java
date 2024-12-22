@@ -21,6 +21,8 @@ public class Professeur {
     private String nom;
     private String prenom;
     private String specialite;
+    private String tel;
+    private String adresse;
 
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
