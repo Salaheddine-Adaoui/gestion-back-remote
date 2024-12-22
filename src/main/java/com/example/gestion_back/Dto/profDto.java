@@ -18,6 +18,5 @@ public class profDto {
     private String email;
     private String password;
     MultipartFile file;
-    
-	
+
 }

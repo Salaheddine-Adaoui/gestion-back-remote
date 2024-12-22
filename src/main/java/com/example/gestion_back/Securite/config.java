@@ -33,9 +33,9 @@ public class config {
         http
             .authorizeRequests(authorizeRequests ->
                 authorizeRequests
-                .requestMatchers("/auth","/newprof","/user/**","/newadmin","/allprofs").permitAll()
+                //.requestMatchers("/auth","/newprof","/user/**","/newadmin","/allprofs").permitAll()
                 //.requestMatchers("/user/hello").hasRole("CLIENT")
-                .anyRequest().authenticated() 
+                .anyRequest().permitAll()
             )
             .addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class)
             .csrf().disable();

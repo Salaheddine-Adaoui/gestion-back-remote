@@ -111,6 +111,25 @@ public class userController {
 		}
 	}
 	
+	@DeleteMapping("deleteprof/{code}")
+	ResponseEntity<String>  deleteProf(@PathVariable String code) {
+		String issaved=profserv.deleteProf(code);
+		if(issaved.equals("succes")) {
+			return ResponseEntity.ok().body("deleted whit succes");
+		}else {
+			return ResponseEntity.badRequest().body("error, delete failed");
+		}
+	}
+	@PutMapping("updateprof/{code}")
+	ResponseEntity<String>  updateProf(@PathVariable String code,@ModelAttribute profDto prof) throws IOException {
+		String issaved=profserv.updateProf(code,prof);
+		if(issaved.equals("succes")) {
+			return ResponseEntity.ok().body("updated whit succes");
+		}else {
+			return ResponseEntity.badRequest().body("error, update failed");
+		}
+	}
+	
 	
 	@GetMapping("user/allusers")
 	public List<Compte> findall(){
@@ -149,6 +168,15 @@ public class userController {
 			return ResponseEntity.ok(myuser);
 		}
 		return ResponseEntity.badRequest().body("erreure not found");
+	}
+	
+	@GetMapping("getprof/{code}")
+	public ResponseEntity<Map<String,Object>> getprof(@PathVariable String code){
+		Map<String,Object> prof=profserv.findProf(code);
+		if(prof.containsKey("error")) {
+			return  ResponseEntity.badRequest().body(prof);
+		}
+		return ResponseEntity.ok(prof);
 	}
 	
 	@DeleteMapping("user/delete/{id}")

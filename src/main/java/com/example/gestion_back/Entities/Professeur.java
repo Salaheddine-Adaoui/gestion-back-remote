@@ -23,7 +23,7 @@ public class Professeur {
     private String specialite;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="compte_id")
     @JsonBackReference
     private Compte compte;
