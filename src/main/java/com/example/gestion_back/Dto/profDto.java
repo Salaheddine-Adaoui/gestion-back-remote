@@ -17,6 +17,8 @@ public class profDto {
     private String specialite;
     private String email;
     private String password;
+    private String tel;
+    private String adresse;
     MultipartFile file;
 
 }

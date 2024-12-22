@@ -27,6 +27,9 @@ public class profService {
 	profRepo profrepo;
 	
 	@Autowired
+	userServices userserv;
+	
+	@Autowired
 	userRepo compterepo ;
 	
 	@Autowired
@@ -53,12 +56,16 @@ public class profService {
 		prof.setNom(profdto.getNom());
 		prof.setPrenom(profdto.getPrenom());
 		prof.setSpecialite(profdto.getSpecialite());
+		prof.setAdresse(profdto.getAdresse());
+		prof.setTel(profdto.getTel());
 		prof.setCompte(c);
 		
 		profrepo.save(prof);
 		
 		return "succes";
 	}
+	
+	
 	
 	
 	public String updateProf(String code,profDto profdto) throws IOException {
@@ -70,6 +77,8 @@ public class profService {
 			toupdate.setNom(profdto.getNom());
 			toupdate.setPrenom(profdto.getPrenom());
 			toupdate.setSpecialite(profdto.getSpecialite());
+			toupdate.setTel(profdto.getTel());
+			toupdate.setAdresse(profdto.getAdresse());
 			
 			Compte c=toupdate.getCompte();
 			c.setEmail(profdto.getEmail());
@@ -108,7 +117,6 @@ public class profService {
 		if(prof.isPresent()) {
 			Professeur ad=prof.get();
 			Compte c=ad.getCompte();
-			
 			
 			map.put("prof",ad);
 			map.put("compte", c);

@@ -147,31 +147,16 @@ public class userController {
 		return adminserv.allAdmins();
 	}
 	
-	/*
-	@PutMapping("user/update/{id}")
-	public ResponseEntity<String> update(@PathVariable Long id,@RequestBody userUpdateDto user){
-		String mes=userserv.updateuser(id, user);
-		if(mes.equals("succes")) {
-			return ResponseEntity.ok("updated with succes");
-		}else {
-			if(mes.equals("not found")) {
-				return ResponseEntity.badRequest().body("user not found");
-			}
-			else{
-				return ResponseEntity.badRequest().body("this email already register");
-			}
+
+	@GetMapping("getcurrentprof/{email}")
+	public ResponseEntity<Map<String,String>> getCuurentprof(@PathVariable String email){
+		Map<String,String> prof=userserv.findProflogin(email);
+		if(prof.containsKey("error")) {
+			return  ResponseEntity.badRequest().body(prof);
 		}
+		return ResponseEntity.ok(prof);
 	}
-	*/
 	
-	@GetMapping("user/findbyid/{id}")
-	public ResponseEntity<Object> findbuid(@PathVariable Long id){
-		Compte myuser=userserv.finduserbyid(id);
-		if(myuser!=null) {
-			return ResponseEntity.ok(myuser);
-		}
-		return ResponseEntity.badRequest().body("erreure not found");
-	}
 	
 	@GetMapping("getprof/{code}")
 	public ResponseEntity<Map<String,Object>> getprof(@PathVariable String code){
@@ -182,14 +167,6 @@ public class userController {
 		return ResponseEntity.ok(prof);
 	}
 	
-	@DeleteMapping("user/delete/{id}")
-	public ResponseEntity<String> deletebyid(@PathVariable Long id){
-		String mes=userserv.deletebyd(id);
-		if(mes.equals("succes")) {
-			return ResponseEntity.ok("deleted with succes");
-		}
-		return ResponseEntity.badRequest().body("user not found");
-	}
 	
 	@GetMapping("test")
 	String sayHello() {
