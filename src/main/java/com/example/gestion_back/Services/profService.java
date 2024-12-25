@@ -39,6 +39,20 @@ public class profService {
 	// creation de prof avec creation auto de compte
 	public String saveProf(profDto profdto) throws IOException {
 		
+		boolean iscodeexist=profrepo.CodeDejaExist(profdto.getCode());
+		if(iscodeexist) {
+			return "err-code";
+		}
+		
+		
+		
+		String em=profdto.getEmail();
+		
+		Optional<Compte> cc=userrepo.findByEmail(em);
+		if(cc.isPresent()) {
+			return "err-em";
+		}
+		
 		Compte c=new Compte();
 		c.setEmail(profdto.getEmail());
 		c.setPassword(bCryptPasswordEncod.encode(profdto.getPassword()));
@@ -69,10 +83,16 @@ public class profService {
 	
 	
 	public String updateProf(String code,profDto profdto) throws IOException {
-		
+		String em=profdto.getEmail();
+		boolean existautreprof=userrepo.existsByEmailAndNotCode(em, code);
+		if(existautreprof) {
+			return "failed";		
+			}
 		Optional<Professeur> prof=profrepo.findByCode(code);
 		
 		if(prof.isPresent()) {
+            
+			
 			Professeur toupdate=prof.get();
 			toupdate.setNom(profdto.getNom());
 			toupdate.setPrenom(profdto.getPrenom());

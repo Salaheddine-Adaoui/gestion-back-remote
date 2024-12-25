@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -27,8 +26,7 @@ public class Element {
 
     @ManyToOne
     @JoinColumn(name="module_id")
-   
-    private Modulee module;
+    private Moduleee module;
 
     @ManyToMany(mappedBy="element")
     @JsonManagedReference
