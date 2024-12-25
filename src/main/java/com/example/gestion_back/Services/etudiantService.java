@@ -67,7 +67,7 @@ public class etudiantService {
 	
 	
 	// delete module
-	public String deleteAdmin(String cin) {
+	public String deleteEtudiant(String cin) {
 		
 		Optional<Etudiant> et=etudiantrepo.findByCin(cin);
 		if(et.isPresent()) {
