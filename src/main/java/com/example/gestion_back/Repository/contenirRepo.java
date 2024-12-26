@@ -18,6 +18,8 @@ public interface contenirRepo extends JpaRepository<Moduleee,String> {
     @Query("SELECT new com.example.gestion_back.Dto.ModuleFilierDto(f.id,m.code, m.nom, f.niveau, f.nom) FROM Moduleee m LEFT JOIN m.filier f")
     List<ModuleFilierDto> findModuleFilier();
     
+    
+    
    
 
     

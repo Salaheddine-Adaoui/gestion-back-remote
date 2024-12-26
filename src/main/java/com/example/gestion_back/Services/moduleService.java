@@ -1,11 +1,14 @@
 package com.example.gestion_back.Services;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.moduleDto;
+import com.example.gestion_back.Dto.updateModFilDto;
 import com.example.gestion_back.Entities.Filier;
 import com.example.gestion_back.Entities.Moduleee;
 import com.example.gestion_back.Repository.contenirRepo;
@@ -35,6 +38,53 @@ public class moduleService {
 		return "succes";
 	}
 	
+	public Map<String,Object> getModuleFilier(Long id, String code){
+		Moduleee mod= modulerepo.findModuleWithFilier(code, id);
+		Map<String,Object> map=new HashMap<>();
+				map.put("fil", mod.getFilier());
+				map.put("code",code);
+				map.put("nomm", mod.getNom());
+		return map;
+	}
+	
+	
+	
+	
+
+	public String updateModFil(Long id, String code, updateModFilDto objt) {
+	    // Récupérer le module et le filier
+	    Moduleee moduleee = modulerepo.findModuleWithFilier(code, id);
+	    Optional<Filier> newFilierOpt = filierrepo.findById(objt.getFilierid());
+
+	    if (moduleee != null && newFilierOpt.isPresent()) {
+	        Filier newFilier = newFilierOpt.get();
+
+	        // Trouver l'ancien filier associé (par ID ou autre critère)
+	        Optional<Filier> oldFilierOpt = moduleee.getFilier().stream()
+	            .filter(filier -> filier.getId().equals(id)) // Remplacez "id" par l'identifiant à comparer
+	            .findFirst();
+
+	        if (oldFilierOpt.isPresent()) {
+	            Filier oldFilier = oldFilierOpt.get();
+
+	            // Remplacer l'ancien filier par le nouveau
+	            moduleee.getFilier().remove(oldFilier);
+	            moduleee.getFilier().add(newFilier);
+	            moduleee.setNom(objt.getModuleNom()); // Mettre à jour d'autres champs si nécessaire
+
+	            modulerepo.save(moduleee); // Sauvegarder les modifications
+	            return "success";
+	        }
+
+	        return "failed: Old filier not found";
+	    }
+
+	    return "failed: Module or new filier not found";
+	}
+
+	
+
+	
 	public String assignerModulToFilier(Long id,String code) {
 		
 		 Moduleee module = modulerepo.findByCode(code)
@@ -43,13 +93,8 @@ public class moduleService {
 	                .orElseThrow(() -> new RuntimeException("Filière introuvable"));
 		
 	        if (!module.getFilier().contains(filier)) {
-	           
 	            module.getFilier().add(filier);
-
-	        
 	            filier.getModules().add(module);
-
-	     
 	            modulerepo.save(module);
 	            filierrepo.save(filier);
 	            return "succes";
@@ -64,32 +109,26 @@ public class moduleService {
                 .orElseThrow(() -> new RuntimeException("Module introuvable"));
         Filier filier = filierrepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Filière introuvable"));
-	
-        
-           
-            module.getFilier().remove(filier);
 
-        
+            module.getFilier().remove(filier);
+  
             filier.getModules().remove(module);
 
-     
             modulerepo.save(module);
             filierrepo.save(filier);
             return "succes";
-        
-	    
-	 
+
 	}
 		
 	// update module
-	public String updateModule(String code ,Moduleee module){
+	public String updateModule(String code ,moduleDto mm){
 			
 		    Optional<Moduleee> m= modulerepo.findByCode(code);
 			
 			if(m.isPresent()) {
 				Moduleee toupdate=m.get();
-				toupdate.setCode(module.getCode());
-				toupdate.setNom(module.getNom());
+			
+				toupdate.setNom(mm.getNom());
 				
 				modulerepo.save(toupdate);
 				return "succes";
