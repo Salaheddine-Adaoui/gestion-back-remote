@@ -1,6 +1,7 @@
 package com.example.gestion_back.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.moduleDto;
+import com.example.gestion_back.Dto.updateModFilDto;
 import com.example.gestion_back.Entities.Moduleee;
 import com.example.gestion_back.Services.moduleService;
 
@@ -48,6 +50,15 @@ public class moduleController {
 			return ResponseEntity.badRequest().body("errure module ou filier not found");
 	
 		}
+	
+	@GetMapping("getmoduletfilier/{code}/{id}")
+	public ResponseEntity<Map<String,Object>> getModuleToFilier(
+			@PathVariable("code") String code,
+			@PathVariable("id") Long id) {
+		
+		return ResponseEntity.ok(moduleserv.getModuleFilier(id, code));
+		
+	}
 	
 	@DeleteMapping("delmoduletofilier/{code}/{id}")
 	public ResponseEntity<String> deleteModuleToFilier(
@@ -90,13 +101,22 @@ public class moduleController {
 		return ResponseEntity.badRequest().body("module not found");
 	}
 	
-	@PutMapping("update/{code}")
-	public ResponseEntity<String> update(@PathVariable String code,@RequestBody Moduleee m ){
+	@PutMapping("update/{code}/{id}")
+	public ResponseEntity<String> update(@PathVariable("code") String code,@PathVariable("id") Long id,@RequestBody updateModFilDto m ){
+		String res=moduleserv.updateModFil(id,code,m);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok("module updated with succes");
+		}
+		return ResponseEntity.badRequest().body("module or filier not found whit this infos");
+		
+	}
+	@PutMapping("updatemod/{code}")
+	public ResponseEntity<String> updatee(@PathVariable("code") String code,@RequestBody moduleDto m ){
 		String res=moduleserv.updateModule(code,m);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("module deleted with succes");
+			return ResponseEntity.ok("module updated with succes");
 		}
-		return ResponseEntity.badRequest().body("module not found whit this code");
+		return ResponseEntity.badRequest().body("module or filier not found whit this infos");
 		
 	}
 	

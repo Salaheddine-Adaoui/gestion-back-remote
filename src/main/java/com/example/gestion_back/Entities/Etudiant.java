@@ -13,10 +13,12 @@ import java.util.List;
 @Data
 public class Etudiant {
     @Id
-    private String cin; // Assuming it's a unique identifier
+    private String cin; 
     
     private String nom;
     private String prenom;
+    private String email;
+    private String telephone;
 
     @ManyToOne
     @JoinColumn(name="filier_id")
@@ -24,6 +26,4 @@ public class Etudiant {
 
     @OneToMany(mappedBy = "etudiant")
     private List<Note> notes;
-
-    // Getters et Setters
 }
