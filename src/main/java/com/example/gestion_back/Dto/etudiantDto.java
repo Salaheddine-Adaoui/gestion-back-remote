@@ -15,6 +15,8 @@ public class etudiantDto {
     private String cin; // Assuming it's a unique identifier
     private String nom;
     private String prenom;
+    private String email;
+    private String telephone;
 	
 
 }

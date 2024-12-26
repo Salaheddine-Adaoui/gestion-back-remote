@@ -30,7 +30,7 @@ public class Professeur {
     @JsonBackReference
     private Compte compte;
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "Enseigne",
         joinColumns = @JoinColumn(name = "prof_id", nullable = false),

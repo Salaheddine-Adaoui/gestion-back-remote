@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Entities.Etudiant;
 import com.example.gestion_back.Services.etudiantService;
 
@@ -25,7 +26,7 @@ public class etudiantController {
 	
 	
 	@PostMapping("addEtudiant")
-	public ResponseEntity<String> addEtudiant(@RequestBody Etudiant e){
+	public ResponseEntity<String> addEtudiant(@RequestBody etudiantDto e){
 		
 		String res = etudiantserv.saveEtudiant(e);
 		if(res.equals("succes")) {

@@ -5,20 +5,19 @@ import lombok.*;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Modulee {
+public class Moduleee {
 	
     @Id
     private String code;
     private String nom;
 
     @OneToMany(mappedBy = "module")
-    @JsonManagedReference
     private List<Element> elements;
     
     @ManyToMany

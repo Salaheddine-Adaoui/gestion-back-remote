@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +28,7 @@ public class Filier {
     private List<Etudiant> etudiants;
 
     @ManyToMany(mappedBy = "filier")
-    private List<Modulee> modules;
+    @JsonBackReference("moduleFiliers")
+    private List<Moduleee> modules;
 
 }

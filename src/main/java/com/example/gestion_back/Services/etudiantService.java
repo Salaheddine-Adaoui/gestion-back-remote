@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Entities.Etudiant;
 import com.example.gestion_back.Entities.Filier;
+import com.example.gestion_back.Entities.Moduleee;
 import com.example.gestion_back.Repository.etudiantRepo;
 import com.example.gestion_back.Repository.filierRepo;
 
@@ -22,24 +24,34 @@ public class etudiantService {
 	
 	
 	// Ajout de l'etudiant
-	public String saveEtudiant(Etudiant etudiant)  {
-		etudiantrepo.save(etudiant);
+	public String saveEtudiant(etudiantDto etudiant)  {
+		Etudiant e = new Etudiant();
+		e.setCin(etudiant.getCin());
+		e.setNom(etudiant.getNom());
+		e.setPrenom(etudiant.getPrenom());
+		e.setEmail(etudiant.getEmail());
+		e.setTelephone(etudiant.getTelephone());
+		
+		etudiantrepo.save(e);
+		
 		return "succes";
 	}
 		
 	// update module
-	public String updateEtudiant(String code ,Etudiant module){
+	public String updateEtudiant(String code ,Etudiant etudiant){
 			
-		    Optional<Etudiant> m= etudiantrepo.findByCin(code);
-		    Optional<Filier> f= filierrepo.findById(module.getFilier().getId());
+		    Optional<Etudiant> e= etudiantrepo.findByCin(code);
 			
-			if(m.isPresent()&&f.isPresent()) {
-				Etudiant toupdate=m.get();
-				Filier ff=f.get();
-				toupdate.setCin(module.getCin());
-				toupdate.setNom(module.getNom());
-				toupdate.setPrenom(module.getNom());
-				toupdate.setFilier(ff);
+			if(e.isPresent()) {
+				Etudiant toupdate = e .get();
+				
+				toupdate.setCin(etudiant.getCin());
+				toupdate.setNom(etudiant.getNom());
+				toupdate.setPrenom(etudiant.getPrenom());
+				toupdate.setEmail(etudiant.getEmail());
+				toupdate.setTelephone(etudiant.getTelephone());
+				
+
 				
 				etudiantrepo.save(toupdate);
 				return "succes";
@@ -47,6 +59,9 @@ public class etudiantService {
 			
 			return "failed";
 		}
+	
+	
+	
 	
 	// find modeule pa code
 	public Etudiant findEtudiant(String cin) {
@@ -60,7 +75,7 @@ public class etudiantService {
 		return null;
 	}
 	
-	// find all modules
+	// find all Etudiant
 	public List<Etudiant> allEtudiants(){
 		return etudiantrepo.findAll();
 	}
@@ -71,7 +86,7 @@ public class etudiantService {
 		
 		Optional<Etudiant> et=etudiantrepo.findByCin(cin);
 		if(et.isPresent()) {
-			Etudiant md=et.get();
+			Etudiant md = et.get();
 			
 			etudiantrepo.delete(md);
 			return "succes";

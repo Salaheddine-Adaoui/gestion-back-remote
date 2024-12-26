@@ -107,7 +107,10 @@ public class userController {
 		if(issaved.equals("succes")) {
 			return ResponseEntity.ok().body("register whit succes");
 		}else {
-			return ResponseEntity.badRequest().body("this email is already exist");
+			if(issaved.equals("err-em")) {
+				return ResponseEntity.badRequest().body("this email is already exist");
+			}
+			return ResponseEntity.badRequest().body("this code already exist");
 		}
 	}
 	
