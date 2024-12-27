@@ -154,7 +154,10 @@ public class profService {
 	        HashMap<String, Object> map = new HashMap<>();
 	        
 	        // Add Professeur data
-	        map.put("prof", prof);
+	        map.put("code", prof.getCode());
+	        map.put("nom", prof.getNom());
+	        map.put("prenom", prof.getPrenom());
+	        map.put("specialite", prof.getSpecialite());
 	        
 	        // Add Compte data (with the account ID)
 	        Compte compte = prof.getCompte();

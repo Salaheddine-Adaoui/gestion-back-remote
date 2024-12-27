@@ -1,7 +1,9 @@
 package com.example.gestion_back.Services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class etudiantService {
 	
 	@Autowired
 	etudiantRepo etudiantrepo;
+	
+
 	
 	@Autowired
 	filierRepo filierrepo;
@@ -76,9 +80,34 @@ public class etudiantService {
 	}
 	
 	// find all Etudiant
-	public List<Etudiant> allEtudiants(){
-		return etudiantrepo.findAll();
+	public List<etudiantDto> getAllEtudiants() {
+	    List<Etudiant> etudiants = etudiantrepo.findAll();
+	    return etudiants.stream()
+	        .map(etudiant -> new etudiantDto(
+	            etudiant.getCin(),
+	            etudiant.getNom(),
+	            etudiant.getPrenom(),
+	            etudiant.getEmail(),
+	            etudiant.getTelephone(),
+	            etudiant.getFilier() != null ? etudiant.getFilier().getId() : null,
+	            etudiant.getFilier() !=null ? etudiant.getFilier().getNom() : null
+	        ))
+	        .collect(Collectors.toList());
 	}
+	
+	// asigner filier to etudiant
+		public String assignerFilToEtudiant(String cin,Long id) {
+			Etudiant et=etudiantrepo.findByCin(cin)
+					.orElseThrow(() -> new RuntimeException("Module introuvable"));
+			Filier fil=filierrepo.findById(id)
+					.orElseThrow(() -> new RuntimeException("Module introuvable"));
+			
+			et.setFilier(fil);
+			etudiantrepo.save(et);
+			return "succes";
+		}
+		
+
 	
 	
 	// delete module

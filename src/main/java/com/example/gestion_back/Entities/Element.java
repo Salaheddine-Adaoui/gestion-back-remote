@@ -24,12 +24,17 @@ public class Element {
     private double coefficient;
 
 
+
     @ManyToOne
     @JoinColumn(name="module_id")
     private Moduleee module;
 
-    @ManyToMany(mappedBy="element")
-    @JsonManagedReference
-    private List<Professeur> professeur;
+    @ManyToOne
+    @JoinColumn(name="prof_id")
+    @JsonBackReference
+    private Professeur prof ;
+    
+    @OneToMany(mappedBy = "element", cascade = CascadeType.ALL)
+    private List<EtudiantElement> etudiantElements;
 
 }

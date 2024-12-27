@@ -17,7 +17,7 @@ public class Moduleee {
     private String code;
     private String nom;
 
-    @OneToMany(mappedBy = "module")
+    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL)
     private List<Element> elements;
     
     @ManyToMany

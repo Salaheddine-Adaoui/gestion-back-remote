@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,8 +25,12 @@ public class Etudiant {
 
     @ManyToOne
     @JoinColumn(name="filier_id")
+    @JsonBackReference
     private Filier filier;
 
     @OneToMany(mappedBy = "etudiant")
     private List<Note> notes;
+    
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
+    private List<EtudiantElement> etudiantElements;
 }

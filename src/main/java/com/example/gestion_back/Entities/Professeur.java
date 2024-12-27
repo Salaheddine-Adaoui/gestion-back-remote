@@ -30,12 +30,8 @@ public class Professeur {
     @JsonBackReference
     private Compte compte;
     
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "Enseigne",
-        joinColumns = @JoinColumn(name = "prof_id", nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "element_id"))
-    @JsonBackReference
+    @OneToMany(mappedBy="prof",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Element> element;
 
     // Getters et Setters

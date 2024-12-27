@@ -37,8 +37,8 @@ public class etudiantController {
 	}
 	
 	@GetMapping("allEtudiants")
-	public ResponseEntity<List<Etudiant>> findall(){
-		return ResponseEntity.ok(etudiantserv.allEtudiants());
+	public ResponseEntity<List<etudiantDto>> findall(){
+		return ResponseEntity.ok(etudiantserv.getAllEtudiants());
 	}
 	
 	@GetMapping("cin/{cin}")
@@ -70,5 +70,14 @@ public class etudiantController {
 	}
 	
 	
+	@PostMapping("filiertoetudiant/{cin}/{id}")
+	public ResponseEntity<String> assigneetfil(@PathVariable String cin,@PathVariable Long id){
+		String res=etudiantserv.assignerFilToEtudiant(cin, id);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok("filier assigned whit succes");
+		}
+		return ResponseEntity.badRequest().body("etudiant or filier not found");
+	}
 
 }
+ 

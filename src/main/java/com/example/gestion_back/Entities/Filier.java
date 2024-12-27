@@ -25,6 +25,7 @@ public class Filier {
     private String niveau;
 
     @OneToMany(mappedBy = "filier")
+    @JsonManagedReference
     private List<Etudiant> etudiants;
 
     @ManyToMany(mappedBy = "filier")
