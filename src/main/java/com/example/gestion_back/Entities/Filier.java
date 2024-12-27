@@ -27,7 +27,7 @@ public class Filier {
     @OneToMany(mappedBy = "filier")
     private List<Etudiant> etudiants;
 
-    @ManyToMany(mappedBy = "filier")
+    @ManyToMany(mappedBy = "filier" , cascade = CascadeType.ALL)
     @JsonBackReference("moduleFiliers")
     private List<Moduleee> modules;
 
