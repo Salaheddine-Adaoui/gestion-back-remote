@@ -51,6 +51,13 @@ public class moduleController {
 	
 		}
 	
+	@GetMapping("allmoduless")
+	public ResponseEntity<List<moduleDto>> modulesss(){
+			
+			return ResponseEntity.ok(moduleserv.allModule());
+	
+		}
+	
 	@GetMapping("getmoduletfilier/{code}/{id}")
 	public ResponseEntity<Map<String,Object>> getModuleToFilier(
 			@PathVariable("code") String code,
@@ -78,10 +85,7 @@ public class moduleController {
 		return ResponseEntity.ok(moduleserv.findModuleFilier());
 	}
 	
-	@GetMapping("all")
-	public ResponseEntity<List<Moduleee>> findall(){
-		return ResponseEntity.ok(moduleserv.allModule());
-	}
+
 	
 	@GetMapping("Byid/{code}")
 	public ResponseEntity<Object> findbuid(@PathVariable String  code){
