@@ -9,6 +9,10 @@ public class EtudiantElement {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idd;
+	 private String status; 
+	 private Double elemNote;
+	
+	
 
     @ManyToOne
     @JoinColumn(name = "cin")
@@ -18,7 +22,8 @@ public class EtudiantElement {
     @JoinColumn(name = "idElement")
     private Element element;
 
-    private String status; 
+   
+    
 
 
 }

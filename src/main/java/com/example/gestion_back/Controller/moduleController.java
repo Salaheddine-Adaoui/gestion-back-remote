@@ -67,7 +67,7 @@ public class moduleController {
 		
 	}
 	
-	@DeleteMapping("delmoduletofilier/{code}/{id}")
+	/*@DeleteMapping("delmoduletofilier/{code}/{id}")
 	public ResponseEntity<String> deleteModuleToFilier(
 			@PathVariable("code") String code,
 			@PathVariable("id") Long id) {
@@ -78,7 +78,7 @@ public class moduleController {
 		}
 		return ResponseEntity.badRequest().body("Module or Filier not found");
 		
-	}
+	}*/
 	
 	@GetMapping("/allmodulefilier")
 	public ResponseEntity<List<ModuleFilierDto>> allModuleFilier(){
@@ -105,7 +105,7 @@ public class moduleController {
 		return ResponseEntity.badRequest().body("Module not found");
 	}
 	
-	@PutMapping("update/{code}/{id}")
+	/*@PutMapping("update/{code}/{id}")
 	public ResponseEntity<String> update(@PathVariable("code") String code,@PathVariable("id") Long id,@RequestBody updateModFilDto m ){
 		String res=moduleserv.updateModFil(id,code,m);
 		if(res.equals("succes")) {
@@ -114,7 +114,7 @@ public class moduleController {
 		return ResponseEntity.badRequest().body("Module or Filier not found");
 		
 	// update nom de module
-	}
+	}*/
 	@PutMapping("updatemod/{code}")
 	public ResponseEntity<String> updatee(@PathVariable("code") String code,@RequestBody moduleDto m ){
 		String res=moduleserv.updateModule(code,m);

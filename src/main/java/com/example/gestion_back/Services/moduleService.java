@@ -53,7 +53,7 @@ public class moduleService {
 	
 	
 
-	public String updateModFil(Long id, String code, updateModFilDto objt) {
+	/*public String updateModFil(Long id, String code, updateModFilDto objt) {
 	    // Récupérer le module et le filier
 	    Moduleee moduleee = modulerepo.findModuleWithFilier(code, id);
 	    Optional<Filier> newFilierOpt = filierrepo.findById(objt.getFilierid());
@@ -82,12 +82,12 @@ public class moduleService {
 	    }
 
 	    return "failed: Module or new filier not found";
-	}
+	}*/
 
 	
 
 	
-	public String assignerModulToFilier(Long id,String code) {
+	/*public String assignerModulToFilier(Long id,String code) {
 		
 		 Moduleee module = modulerepo.findByCode(code)
 	                .orElseThrow(() -> new RuntimeException("Module introuvable"));
@@ -104,9 +104,9 @@ public class moduleService {
 		    
 		    return "failed";
 		
-	}
+	}*/
 	
-	public String dletefilierfrommodule(Long id,String code) {
+	/*public String dletefilierfrommodule(Long id,String code) {
 		Moduleee module = modulerepo.findByCode(code)
                 .orElseThrow(() -> new RuntimeException("Module introuvable"));
         Filier filier = filierrepo.findById(id)
@@ -120,6 +120,18 @@ public class moduleService {
             filierrepo.save(filier);
             return "succes";
 
+	}*/
+	
+	public String assignerModulToFilier(Long id,String code) {
+		Moduleee module = modulerepo.findByCode(code)
+                .orElseThrow(() -> new RuntimeException("Module introuvable"));
+        Filier filier = filierrepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Filière introuvable"));
+        
+        module.setFilier(filier);
+        modulerepo.save(module);
+
+		return "succes";
 	}
 		
 	// update module
@@ -176,4 +188,6 @@ public class moduleService {
 		}
 		return "failed";
 	}
+	
+	
 }
