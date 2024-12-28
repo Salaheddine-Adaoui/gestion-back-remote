@@ -80,7 +80,7 @@ public class userController {
 		   }catch (BadCredentialsException ex) {
 	            return ResponseEntity.status(401).body(Map.of(
 	                    "success", false,
-	                    "error", "Invalid email or password"
+	                    "error", "Invalid Email or Password"
 	                ));
 	            } catch (Exception ex) {
 	                ex.printStackTrace();
@@ -95,9 +95,9 @@ public class userController {
 	ResponseEntity<String>  addAdmin(@ModelAttribute adminDto u) throws IOException {
 		String issaved=adminserv.saveAdmin(u);
 		if(issaved.equals("succes")) {
-			return ResponseEntity.ok().body("register whit succes");
+			return ResponseEntity.ok().body("Register with success");
 		}else {
-			return ResponseEntity.badRequest().body("this email is already exist");
+			return ResponseEntity.badRequest().body("this Email is already exist");
 		}
 	}
 	
@@ -105,12 +105,12 @@ public class userController {
 	ResponseEntity<String>  addProf(@ModelAttribute profDto u) throws IOException {
 		String issaved=profserv.saveProf(u);
 		if(issaved.equals("succes")) {
-			return ResponseEntity.ok().body("register whit succes");
+			return ResponseEntity.ok().body("Register with success");
 		}else {
 			if(issaved.equals("err-em")) {
-				return ResponseEntity.badRequest().body("this email is already exist");
+				return ResponseEntity.badRequest().body("this Email is already exist");
 			}
-			return ResponseEntity.badRequest().body("this code already exist");
+			return ResponseEntity.badRequest().body("this Code already exist");
 		}
 	}
 	
@@ -118,18 +118,18 @@ public class userController {
 	ResponseEntity<String>  deleteProf(@PathVariable String code) {
 		String issaved=profserv.deleteProf(code);
 		if(issaved.equals("succes")) {
-			return ResponseEntity.ok().body("deleted whit succes");
+			return ResponseEntity.ok().body("deleted with success");
 		}else {
-			return ResponseEntity.badRequest().body("error, delete failed");
+			return ResponseEntity.badRequest().body("delete failed");
 		}
 	}
 	@PutMapping("updateprof/{code}")
 	ResponseEntity<String>  updateProf(@PathVariable String code,@ModelAttribute profDto prof) throws IOException {
 		String issaved=profserv.updateProf(code,prof);
 		if(issaved.equals("succes")) {
-			return ResponseEntity.ok().body("updated whit succes");
+			return ResponseEntity.ok().body("updated with success");
 		}else {
-			return ResponseEntity.badRequest().body("error, update failed");
+			return ResponseEntity.badRequest().body("update failed");
 		}
 	}
 	

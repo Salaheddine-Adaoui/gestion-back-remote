@@ -32,9 +32,9 @@ public class moduleController {
 		
 		String res=moduleserv.saveModule(m);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("module added whit succes");
+			return ResponseEntity.ok("Module added with success");
 		}
-		return ResponseEntity.badRequest().body("errure module not added");
+		return ResponseEntity.badRequest().body("Module not added");
 
 	}
 	
@@ -45,9 +45,9 @@ public class moduleController {
 			
 			String res=moduleserv.assignerModulToFilier(id, code);
 			if(res.equals("succes")) {
-				return ResponseEntity.ok("module assigned whit succes");
+				return ResponseEntity.ok("Module assigned whit succes");
 			}
-			return ResponseEntity.badRequest().body("errure module ou filier not found");
+			return ResponseEntity.badRequest().body("Module or Filier not found");
 	
 		}
 	
@@ -74,9 +74,9 @@ public class moduleController {
 		
 		String res=moduleserv.dletefilierfrommodule(id, code);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("module exracted from filier whit succes");
+			return ResponseEntity.ok("Module exracted from Filier with success");
 		}
-		return ResponseEntity.badRequest().body("errure module ou filier not found");
+		return ResponseEntity.badRequest().body("Module or Filier not found");
 		
 	}
 	
@@ -93,25 +93,25 @@ public class moduleController {
 		if(m!=null) {
 			return ResponseEntity.ok(m);
 		}
-		return ResponseEntity.badRequest().body("erreure not found");
+		return ResponseEntity.badRequest().body("Module not found");
 	}
 	
 	@DeleteMapping("delete/{code}")
 	public ResponseEntity<String> deletebyid(@PathVariable String code){
 		String mes=moduleserv.deleteModule(code);
 		if(mes.equals("succes")) {
-			return ResponseEntity.ok("module deleted with succes");
+			return ResponseEntity.ok("Module deleted with succes");
 		}
-		return ResponseEntity.badRequest().body("module not found");
+		return ResponseEntity.badRequest().body("Module not found");
 	}
 	
 	@PutMapping("update/{code}/{id}")
 	public ResponseEntity<String> update(@PathVariable("code") String code,@PathVariable("id") Long id,@RequestBody updateModFilDto m ){
 		String res=moduleserv.updateModFil(id,code,m);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("module updated with succes");
+			return ResponseEntity.ok("Module updated with success");
 		}
-		return ResponseEntity.badRequest().body("module or filier not found whit this infos");
+		return ResponseEntity.badRequest().body("Module or Filier not found");
 		
 	// update nom de module
 	}
@@ -119,9 +119,9 @@ public class moduleController {
 	public ResponseEntity<String> updatee(@PathVariable("code") String code,@RequestBody moduleDto m ){
 		String res=moduleserv.updateModule(code,m);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("module updated with succes");
+			return ResponseEntity.ok("Module updated with succes");
 		}
-		return ResponseEntity.badRequest().body("module or filier not found whit this infos");
+		return ResponseEntity.badRequest().body("Module or Filier not found");
 		
 	}
 	

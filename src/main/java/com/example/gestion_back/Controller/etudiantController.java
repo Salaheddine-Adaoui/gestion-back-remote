@@ -30,9 +30,9 @@ public class etudiantController {
 		
 		String res = etudiantserv.saveEtudiant(e);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("Etudiant added whit succes");
+			return ResponseEntity.ok("Etudiant added with success");
 		}
-		return ResponseEntity.badRequest().body("erreure Etudiant not added");
+		return ResponseEntity.badRequest().body("Etudiant not added");
 
 	}
 	
@@ -47,14 +47,14 @@ public class etudiantController {
 		if(e!=null) {
 			return ResponseEntity.ok(e);
 		}
-		return ResponseEntity.badRequest().body("erreure not found");
+		return ResponseEntity.badRequest().body("Etudiant not found");
 	}
 	
 	@DeleteMapping("deleteEtudiant/{cin}")
 	public ResponseEntity<String> deletebyid(@PathVariable String cin){
 		String mes= etudiantserv.deleteEtudiant(cin);
 		if(mes.equals("succes")) {
-			return ResponseEntity.ok("Etudiant deleted with succes");
+			return ResponseEntity.ok("Etudiant deleted with success");
 		}
 		return ResponseEntity.badRequest().body("Etudiant not found");
 	}
@@ -63,9 +63,9 @@ public class etudiantController {
 	public ResponseEntity<String> update(@PathVariable String cin,@RequestBody Etudiant e ){
 		String res=etudiantserv.updateEtudiant(cin, e);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("Etudiant deleted with succes");
+			return ResponseEntity.ok("Etudiant updated with success");
 		}
-		return ResponseEntity.badRequest().body("Etudiant not found whit this cin");
+		return ResponseEntity.badRequest().body("Etudiant not found");
 		
 	}
 	
@@ -74,9 +74,9 @@ public class etudiantController {
 	public ResponseEntity<String> assigneetfil(@PathVariable String cin,@PathVariable Long id){
 		String res=etudiantserv.assignerFilToEtudiant(cin, id);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("filier assigned whit succes");
+			return ResponseEntity.ok("Filier assigned with success");
 		}
-		return ResponseEntity.badRequest().body("etudiant or filier not found");
+		return ResponseEntity.badRequest().body("Etudiant or Filier not found");
 	}
 
 }

@@ -33,9 +33,9 @@ public class elementController {
 		
 		String res = elemserv.saveElement(e);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("Element added whit succes");
+			return ResponseEntity.ok("Element added with success");
 		}
-		return ResponseEntity.badRequest().body("erreure element not added");
+		return ResponseEntity.badRequest().body("Element not added");
 
 	}
 	
@@ -44,9 +44,9 @@ public class elementController {
 		
 		String res = elemserv.asignerProf(code, id);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("Prof assigned to element whit succes");
+			return ResponseEntity.ok("Prof assigned to Element with success");
 		}
-		return ResponseEntity.badRequest().body("erreure Prof no assiged");
+		return ResponseEntity.badRequest().body("Prof not assigned");
 		
 	}
 	
@@ -62,7 +62,7 @@ public class elementController {
 			return ResponseEntity.ok(e);
 		}
 		Map<String,Object> err=new HashMap<>();
-		err.put("error", "element not found");
+		err.put("error", "Element not found");
 		return ResponseEntity.badRequest().body(err);
 	}
 	
@@ -79,9 +79,9 @@ public class elementController {
 	public ResponseEntity<String> update(@PathVariable Long id,@RequestBody elementDto e ){
 		String res=elemserv.updateElement(id, e);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("Element updated with succes");
+			return ResponseEntity.ok("Element updated with success");
 		}
-		return ResponseEntity.badRequest().body("Element not found whit this cin");
+		return ResponseEntity.badRequest().body("Element not found");
 		
 	}
 }

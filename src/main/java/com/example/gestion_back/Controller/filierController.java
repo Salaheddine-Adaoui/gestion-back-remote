@@ -34,7 +34,7 @@ public class filierController {
 		
 		String res=filierserv.saveFilier(m);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("filier added whit success");
+			return ResponseEntity.ok("Filier added with success");
 		}
 		return ResponseEntity.badRequest().body("Filier not added");
 
@@ -51,25 +51,25 @@ public class filierController {
 		if(e!=null) {
 			return ResponseEntity.ok(e);
 		}
-		return ResponseEntity.badRequest().body("Filier  not found");
+		return ResponseEntity.badRequest().body("Filier not found");
 	}
 	
 	@DeleteMapping("deleteFiliere/{id}")
 	public ResponseEntity<String> deletebyid(@PathVariable Long id){
 		String mes= filierserv.deleteFilier(id);
 		if(mes.equals("succes")) {
-			return ResponseEntity.ok("Filiere deleted with succes");
+			return ResponseEntity.ok("Filier deleted with success");
 		}
-		return ResponseEntity.badRequest().body("Filiere not found");
+		return ResponseEntity.badRequest().body("Filier not found");
 	}
 	
 	@PutMapping("updateFilier/{id}")
 	public ResponseEntity<String> update(@PathVariable Long id ,@RequestBody filierDto e ){
 		String res = filierserv.updatefiliere(id, e);
 		if(res.equals("succes")) {
-			return ResponseEntity.ok("Filiere deleted with succes");
+			return ResponseEntity.ok("Filier updated with success");
 		}
-		return ResponseEntity.badRequest().body("Filiere not found whit this Id");
+		return ResponseEntity.badRequest().body("Filier not found");
 		
 	}
 	
