@@ -20,11 +20,7 @@ public class Moduleee {
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL)
     private List<Element> elements;
     
-    @ManyToMany
-    @JoinTable(
-        name = "contenir",
-        joinColumns = @JoinColumn(name = "module_id", nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "filier_id"))
-    private List<Filier> filier;
+    @ManyToOne
+    private Filier filier;
 
 }

@@ -24,5 +24,6 @@ public class Note {
     @OneToOne
     @JoinColumn(name="evaluation_id")
     private Evaluation evaluation;
+    
 
 }
