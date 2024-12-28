@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.gestion_back.Dto.ElementsProfDto;
 import com.example.gestion_back.Dto.adminDto;
 import com.example.gestion_back.Dto.loginDto;
 import com.example.gestion_back.Dto.profDto;
@@ -32,6 +33,7 @@ import com.example.gestion_back.Services.adminService;
 import com.example.gestion_back.Services.profService;
 import com.example.gestion_back.Services.userServices;
 import com.example.gestion_back.Entities.Professeur;
+import com.example.gestion_back.Repository.profRepo;
 import com.example.gestion_back.Entities.Admin;
 
 
@@ -46,6 +48,9 @@ public class userController {
 	
 	@Autowired
 	profService profserv;
+	
+	@Autowired
+	profRepo profrepo;
 	
 	@Autowired
 	CustomUserDetailsService serv;
@@ -172,4 +177,12 @@ public class userController {
 	String sayHello() {
 		return "hello world";
 	}
+	
+	@GetMapping("elprofs/{code}")
+	List<ElementsProfDto> tesst(@PathVariable String code) {
+		return profrepo.getElementProf(code);
+	}
+	
+	
+	
 }

@@ -99,6 +99,8 @@ public class profService {
 			toupdate.setSpecialite(profdto.getSpecialite());
 			toupdate.setTel(profdto.getTel());
 			toupdate.setAdresse(profdto.getAdresse());
+			toupdate.setAdresse(profdto.getAdresse());
+			toupdate.setTel(profdto.getTel());
 			
 			Compte c=toupdate.getCompte();
 			c.setEmail(profdto.getEmail());
@@ -137,9 +139,19 @@ public class profService {
 		if(prof.isPresent()) {
 			Professeur ad=prof.get();
 			Compte c=ad.getCompte();
-			
-			map.put("prof",ad);
-			map.put("compte", c);
+	        
+	        // Add Professeur data
+	        map.put("code", ad.getCode());
+	        map.put("nom", ad.getNom());
+	        map.put("prenom", ad.getPrenom());
+	        map.put("specialite", ad.getSpecialite());
+	        map.put("tel", ad.getTel());
+	        map.put("adresse", ad.getAdresse());
+	        
+	        // Add Compte data (with the account ID)
+	        Compte compte = ad.getCompte();
+	        map.put("email", compte.getEmail());
+	        map.put("image", compte.getImage());
 			return map;
 		}
 		map.put("error", "ce code n'exist pas");
@@ -158,6 +170,8 @@ public class profService {
 	        map.put("nom", prof.getNom());
 	        map.put("prenom", prof.getPrenom());
 	        map.put("specialite", prof.getSpecialite());
+	        map.put("tel", prof.getTel());
+	        map.put("adresse", prof.getAdresse());
 	        
 	        // Add Compte data (with the account ID)
 	        Compte compte = prof.getCompte();
