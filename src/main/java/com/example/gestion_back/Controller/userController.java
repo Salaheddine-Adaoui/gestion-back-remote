@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gestion_back.Dto.ElementsProfDto;
+import com.example.gestion_back.Dto.PiechartProfDto;
 import com.example.gestion_back.Dto.adminDto;
 import com.example.gestion_back.Dto.loginDto;
 import com.example.gestion_back.Dto.profDto;
@@ -182,6 +183,12 @@ public class userController {
 	List<ElementsProfDto> tesst(@PathVariable String code) {
 		return profrepo.getElementProf(code);
 	}
+	
+	@GetMapping("piecharprof/{code}")
+	List<PiechartProfDto > piecharprof(@PathVariable String code) {
+		return profrepo.profpychart(code);
+	}
+	
 	
 	
 	

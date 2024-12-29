@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ElementsProfDto {
 	
-	private String  nomModule;
+	
 	private String  nomElement;
+	private String  nomModule;
 	private String  nomFiliere;
 
 }
