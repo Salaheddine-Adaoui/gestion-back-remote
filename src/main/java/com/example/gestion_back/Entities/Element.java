@@ -38,5 +38,8 @@ public class Element {
     
     @OneToMany(mappedBy = "element", cascade = CascadeType.ALL)
     private List<EtudiantElement> etudiantElements;
+    
+    @OneToMany(mappedBy="element",cascade=CascadeType.ALL)
+    private List<Evaluation> evaluation;
 
 }

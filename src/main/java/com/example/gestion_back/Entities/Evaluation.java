@@ -17,8 +17,8 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne
-    private Modalite modalite;
+   private String type;
+   private double coiff;
 
     @OneToOne(mappedBy = "evaluation")
     private Note notes;
