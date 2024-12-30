@@ -68,7 +68,4 @@ public class evaluationController {
 		}
 		return ResponseEntity.badRequest().body("evaluation not foud whit this id");
 	}
-	
-	
-
 }

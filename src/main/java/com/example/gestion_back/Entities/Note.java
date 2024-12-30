@@ -13,7 +13,8 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    double notee;
+    private String status="pending";
 
     private String presence;
 

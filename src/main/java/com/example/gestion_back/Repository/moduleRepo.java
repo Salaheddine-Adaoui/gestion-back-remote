@@ -16,5 +16,6 @@ public interface moduleRepo extends JpaRepository<Moduleee,String> {
 	@Query("SELECT m FROM Moduleee m JOIN FETCH m.filier f WHERE m.code = :code AND f.id = :id")
 	Moduleee findModuleWithFilier(@Param("code") String code, @Param("id") Long id);
 
-
+	@Query("select count(m) from Moduleee m")
+	Long nbModule();
 }

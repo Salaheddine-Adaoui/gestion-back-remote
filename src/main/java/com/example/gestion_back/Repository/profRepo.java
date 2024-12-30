@@ -33,7 +33,8 @@ public interface profRepo extends JpaRepository<Professeur,String> {
           @Query("select new com.example.gestion_back.Dto.elementDto(e.id,e.nom) from Professeur p join p.element e join e.etudiantElements el where p.code=:c and el.etudiant.cin=:cin")
           public List<elementDto> getElementProfEtudiant(@Param("c") String code,@Param("cin") String cin);
         	  
-          
+          @Query("select count(p) from Professeur p")
+      	  Long nbProf();
         	  
           
           
