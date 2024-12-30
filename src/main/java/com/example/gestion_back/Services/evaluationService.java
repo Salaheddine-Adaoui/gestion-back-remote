@@ -116,6 +116,20 @@ public class evaluationService {
 		return "failed";
 	}
 	
+	public List<Map<String,Object>> evaluationDEelement(Long id){
+		List<Evaluation> evaluations=evalrepo.findByElementId(id);
+		List<Map<String,Object>> list=new ArrayList<>();
+		
+		for(Evaluation ev:evaluations) {
+			Map<String,Object> map=new HashMap<>();
+			map.put("idev", ev.getId());
+			map.put("type", ev.getType());
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
 	
 	
 	

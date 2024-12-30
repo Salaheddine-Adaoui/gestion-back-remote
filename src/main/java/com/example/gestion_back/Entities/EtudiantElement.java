@@ -2,8 +2,14 @@ package com.example.gestion_back.Entities;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EtudiantElement {
 
 	@Id

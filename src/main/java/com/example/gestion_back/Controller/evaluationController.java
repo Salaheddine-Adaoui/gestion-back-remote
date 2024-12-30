@@ -51,6 +51,15 @@ public class evaluationController {
 		return  ResponseEntity.badRequest().body(null);
 	}
 	
+	@GetMapping("allEvalDeelement/{id}")
+	public ResponseEntity<Object> allEvalsdeElement(@PathVariable Long id){
+		List<Map<String,Object>> res=evalserv.evaluationDEelement(id);
+		if(!res.isEmpty()) {
+			return ResponseEntity.ok(res);
+		}
+		return  ResponseEntity.badRequest().body(null);
+	}
+	
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> deleteeval(@PathVariable Long id){
 		String res=evalserv.deleteEvaluation(id);
@@ -59,5 +68,7 @@ public class evaluationController {
 		}
 		return ResponseEntity.badRequest().body("evaluation not foud whit this id");
 	}
+	
+	
 
 }

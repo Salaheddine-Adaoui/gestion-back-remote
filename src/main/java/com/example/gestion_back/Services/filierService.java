@@ -1,6 +1,9 @@
 package com.example.gestion_back.Services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +60,18 @@ public class filierService {
 	
 	
 	// find all Etudiant
-	public List<Filier> allFiliers(){
-		return filierrepo.findAll();
+	public List<Map<String,Object>> allFiliers(){
+		List<Filier> ff=filierrepo.findAll();
+		List<Map<String,Object>> list=new ArrayList<>();
+		for (Filier f:ff) {
+			Map<String,Object> map=new HashMap<>();
+			map.put("id", f.getId());
+			map.put("nom", f.getNom());
+			map.put("departement", f.getDepartement());
+			map.put("niveau", f.getNiveau());
+			list.add(map);
+		}
+		return list;
 	}
 	
 	

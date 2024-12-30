@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.gestion_back.Dto.elementDto;
 import com.example.gestion_back.Entities.Element;
+import com.example.gestion_back.Repository.profRepo;
 import com.example.gestion_back.Services.elementService;
 
 
@@ -26,6 +27,9 @@ public class elementController {
 	
 	@Autowired
 	elementService elemserv ;
+	
+	@Autowired
+	profRepo profrepo ;
 	
 	
 	@PostMapping("addElement")
@@ -83,5 +87,10 @@ public class elementController {
 		}
 		return ResponseEntity.badRequest().body("Element not found");
 		
+	}
+	
+	@GetMapping("elemproffetudiant/{code}/{cin}")
+	public ResponseEntity<List<elementDto>> getElementPofEtud(@PathVariable String code,@PathVariable String cin ){
+		 return ResponseEntity.ok(profrepo.getElementProfEtudiant(code, cin));
 	}
 }

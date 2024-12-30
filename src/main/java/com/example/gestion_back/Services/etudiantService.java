@@ -9,11 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.gestion_back.Dto.etudiantDto;
+import com.example.gestion_back.Entities.Element;
 import com.example.gestion_back.Entities.Etudiant;
+import com.example.gestion_back.Entities.EtudiantElement;
 import com.example.gestion_back.Entities.Filier;
 import com.example.gestion_back.Entities.Moduleee;
+import com.example.gestion_back.Repository.elementRepo;
 import com.example.gestion_back.Repository.etudiantRepo;
+import com.example.gestion_back.Repository.etudiantelementRepo;
 import com.example.gestion_back.Repository.filierRepo;
+import com.example.gestion_back.Repository.moduleRepo;
 
 @Service
 public class etudiantService {
@@ -21,10 +26,18 @@ public class etudiantService {
 	@Autowired
 	etudiantRepo etudiantrepo;
 	
-
+	@Autowired
+	etudiantelementRepo etudiantelementrepo;
 	
 	@Autowired
 	filierRepo filierrepo;
+	
+	@Autowired
+	moduleRepo modulerepo;
+	
+	@Autowired
+	elementRepo elementrepo;
+	
 	
 	
 	// Ajout de l'etudiant
@@ -98,9 +111,21 @@ public class etudiantService {
 	// asigner filier to etudiant
 		public String assignerFilToEtudiant(String cin,Long id) {
 			Etudiant et=etudiantrepo.findByCin(cin)
-					.orElseThrow(() -> new RuntimeException("Module introuvable"));
+					.orElseThrow(() -> new RuntimeException("etudiant introuvable"));
 			Filier fil=filierrepo.findById(id)
-					.orElseThrow(() -> new RuntimeException("Module introuvable"));
+					.orElseThrow(() -> new RuntimeException("filier introuvable"));
+			
+			List<Moduleee> m=fil.getModules();
+			for(Moduleee mod:m) {
+				List<Element> el=mod.getElements();
+				for(Element e:el) {
+					EtudiantElement etel=new EtudiantElement();
+					etel.setEtudiant(et);
+					etel.setElement(e);
+					etel.setStatus("pending");
+					etudiantelementrepo.save(etel);
+				}
+			}
 			
 			et.setFilier(fil);
 			etudiantrepo.save(et);

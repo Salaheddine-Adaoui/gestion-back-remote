@@ -1,6 +1,7 @@
 package com.example.gestion_back.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class filierController {
 	}
 	
 	@GetMapping("allFiliers")
-	public ResponseEntity<List<Filier>> findall(){
+	public ResponseEntity<List<Map<String,Object>>> findall(){
 		return ResponseEntity.ok(filierserv.allFiliers());
 	}
 	
@@ -70,8 +71,11 @@ public class filierController {
 			return ResponseEntity.ok("Filier updated with success");
 		}
 		return ResponseEntity.badRequest().body("Filier not found");
-		
 	}
+	
+	
+	
+	
 	
 	
 }

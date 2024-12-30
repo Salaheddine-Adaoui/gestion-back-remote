@@ -14,7 +14,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status;
+
     private String presence;
 
     @ManyToOne
@@ -24,6 +24,5 @@ public class Note {
     @OneToOne
     @JoinColumn(name="evaluation_id")
     private Evaluation evaluation;
-    
 
 }

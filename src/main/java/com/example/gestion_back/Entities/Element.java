@@ -22,7 +22,6 @@ public class Element {
     
     private String nom;
     private double coefficient;
-    private String status = "pending";
     
 
 

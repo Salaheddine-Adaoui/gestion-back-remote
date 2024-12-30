@@ -11,6 +11,7 @@ import com.example.gestion_back.Entities.Evaluation;
 
 @Repository
 public interface evaluationRepo extends JpaRepository<Evaluation,Long> {
-
+     
+	 List<Evaluation> findByElementId(Long id);
        
 }

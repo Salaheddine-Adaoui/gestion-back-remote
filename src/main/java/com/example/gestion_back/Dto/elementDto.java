@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class elementDto {
 	
+	public elementDto(Long idd ,String nomm) {
+		id=idd;nom=nomm;
+	}
+	
 	private Long id;
 	private String nom;
 	private double coiff;
