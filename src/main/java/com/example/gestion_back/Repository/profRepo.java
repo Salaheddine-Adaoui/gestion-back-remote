@@ -24,7 +24,6 @@ public interface profRepo extends JpaRepository<Professeur,String> {
                   "join m.filier f where p.code=:c "
         		  
         		  )
-          // (f.nom,count(e))
           List<ElementsProfDto> getElementProf(@Param("c") String code) ;
           
           //@Query("select new com.example.gestion_back.Dto.PiechartProfDto(f.nom,count(e)) from Professeur p join p.element e join e.module m "+
