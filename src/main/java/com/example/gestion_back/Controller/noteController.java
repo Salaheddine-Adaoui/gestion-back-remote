@@ -24,7 +24,6 @@ public class noteController {
 		if(res.equals("succes")) {
 			return ResponseEntity.ok("Note added whit acces");
 		}
-		return ResponseEntity.badRequest().body("element or etudiant not found check again");
+		return ResponseEntity.badRequest().body("This element has not evaluation at the moment");
 	}
-
 }
