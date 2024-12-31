@@ -57,7 +57,7 @@ public class evaluationController {
 		if(!res.isEmpty()) {
 			return ResponseEntity.ok(res);
 		}
-		return  ResponseEntity.badRequest().body(null);
+		return  ResponseEntity.badRequest().body("non evaluation pour ce element");
 	}
 	
 	@DeleteMapping("delete/{id}")

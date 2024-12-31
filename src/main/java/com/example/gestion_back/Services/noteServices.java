@@ -56,7 +56,15 @@ public class noteServices {
 				Optional<Evaluation> e=evalrepo.findById(ajoutdto.getIdcc());
 				if(e.isPresent()) {
 					Evaluation ee=e.get();
-					Note note =new Note();
+					Note note;
+					boolean isExist=noterepo.existsByEtudiantAndEvaluation(ett, ee);
+					if(isExist) {
+						note=noterepo.findByEtudiantAndEvaluation(ett, ee).get(0);
+					}
+					else {
+						note =new Note();
+					}
+					
 					note.setEtudiant(ett);
 					double not=ajoutdto.getNotecc()*ee.getCoiff();
 					m=m+not;
@@ -76,7 +84,14 @@ public class noteServices {
 				Optional<Evaluation> e=evalrepo.findById(ajoutdto.getIdtp());
 				if(e.isPresent()) {
 					Evaluation ee=e.get();
-					Note note =new Note();
+					Note note;
+					boolean isExist=noterepo.existsByEtudiantAndEvaluation(ett, ee);
+					if(isExist) {
+						note=noterepo.findByEtudiantAndEvaluation(ett, ee).get(0);
+					}
+					else {
+						note =new Note();
+					}
 					note.setEtudiant(ett);
 					double not=ajoutdto.getNotetp()*ee.getCoiff();
 					m=m+not;
@@ -96,7 +111,14 @@ public class noteServices {
 				Optional<Evaluation> e=evalrepo.findById(ajoutdto.getIdpres());
 				if(e.isPresent()) {
 					Evaluation ee=e.get();
-					Note note =new Note();
+					Note note;
+					boolean isExist=noterepo.existsByEtudiantAndEvaluation(ett, ee);
+					if(isExist) {
+						note=noterepo.findByEtudiantAndEvaluation(ett, ee).get(0);
+					}
+					else {
+						note =new Note();
+					}
 					note.setEtudiant(ett);
 					double not=ajoutdto.getNotepres()*ee.getCoiff();
 					m=m+not;
@@ -116,7 +138,14 @@ public class noteServices {
 				Optional<Evaluation> e=evalrepo.findById(ajoutdto.getIdproj());
 				if(e.isPresent()) {
 					Evaluation ee=e.get();
-					Note note =new Note();
+					Note note;
+					boolean isExist=noterepo.existsByEtudiantAndEvaluation(ett, ee);
+					if(isExist) {
+						note=noterepo.findByEtudiantAndEvaluation(ett, ee).get(0);
+					}
+					else {
+						note =new Note();
+					}
 					note.setEtudiant(ett);
 					double not=ajoutdto.getNoteproj()*ee.getCoiff();
 					m=m+not;
@@ -145,6 +174,8 @@ public class noteServices {
 		return "failed";
 	
 	}
+	
+
 		
 
 }

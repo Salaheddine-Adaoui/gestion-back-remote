@@ -63,6 +63,7 @@ public class userServices {
 			map.put("email", compte.getEmail());
 			map.put("Role", compte.getRole());
 			map.put("nom", prof.getNom());
+			map.put("code", prof.getCode());
 			map.put("prenom", prof.getPrenom());
 			map.put("specialite",prof.getSpecialite() );
 			map.put("image", compte.getImage());

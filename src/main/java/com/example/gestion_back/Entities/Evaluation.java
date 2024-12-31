@@ -20,8 +20,8 @@ public class Evaluation {
    private String type;
    private double coiff;
 
-    @OneToOne(mappedBy = "evaluation")
-    private Note notes;
+    @OneToMany(mappedBy = "evaluation")
+    private List<Note> notes;
 
     @ManyToOne
     @JoinColumn(name="element_id")

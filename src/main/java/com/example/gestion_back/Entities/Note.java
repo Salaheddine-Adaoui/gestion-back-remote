@@ -22,7 +22,7 @@ public class Note {
     @JoinColumn(name="etudiant_id")
     private Etudiant etudiant;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="evaluation_id")
     private Evaluation evaluation;
 
