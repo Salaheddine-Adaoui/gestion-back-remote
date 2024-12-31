@@ -189,6 +189,13 @@ public class userController {
 		return profrepo.profpychart(code);
 	}
 	
+	//----------- countprof T_T ----------
+	@GetMapping("nbrprof")
+    public ResponseEntity<Long> getNbProf() {
+        Long count = profrepo.nbProf();
+        return ResponseEntity.ok(count);
+    }
+	
 	
 	
 	

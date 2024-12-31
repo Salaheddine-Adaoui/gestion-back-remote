@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Entities.Etudiant;
+import com.example.gestion_back.Repository.etudiantRepo;
 import com.example.gestion_back.Services.etudiantService;
 
 @RestController
@@ -23,6 +24,9 @@ public class etudiantController {
 	
 	@Autowired
 	etudiantService etudiantserv ;
+	
+	@Autowired
+	etudiantRepo etudiantrepo;
 	
 	
 	@PostMapping("addEtudiant")
@@ -78,6 +82,14 @@ public class etudiantController {
 		}
 		return ResponseEntity.badRequest().body("Etudiant or Filier not found");
 	}
+	
+	//----------- countmodule T_T ----------
+	@GetMapping("nbretudiant")
+	public ResponseEntity<Long> getNbEtudiant() {
+		Long count = etudiantrepo.nbEtudiant();
+		return ResponseEntity.ok(count);
+	}
+	
 
 }
  

@@ -19,6 +19,7 @@ import com.example.gestion_back.Dto.filierDto;
 import com.example.gestion_back.Dto.moduleDto;
 import com.example.gestion_back.Entities.Etudiant;
 import com.example.gestion_back.Entities.Filier;
+import com.example.gestion_back.Repository.filierRepo;
 import com.example.gestion_back.Services.filierService;
 import com.example.gestion_back.Services.moduleService;
 
@@ -29,6 +30,24 @@ public class filierController {
    
 	@Autowired
 	filierService filierserv;
+	
+	@Autowired
+	filierRepo filierrepo;
+	
+	
+	//=================================================//
+	@GetMapping("filiertudiants/{id}")
+	public ResponseEntity<Object> filierEtudiants(@PathVariable Long id) {
+	    List<etudiantDto> etudiants = filierrepo.getFilierEtudiants(id);
+	    if (etudiants != null && !etudiants.isEmpty()) {
+	        return ResponseEntity.ok(etudiants); 
+	    }
+	    return ResponseEntity.badRequest().body("No students found for the given Filiere ID");
+	}
+	//=================================================//
+	
+	
+	
 	
 	@PostMapping("/add")
 	public ResponseEntity<String> addFilier(@RequestBody filierDto m){
@@ -74,7 +93,12 @@ public class filierController {
 	}
 	
 	
-	
+	//----------- countmodule T_T ----------
+	@GetMapping("nbrfilier")
+	public ResponseEntity<Long> getNbFilier() {
+		 Long count = filierrepo.nbFilier();
+		 return ResponseEntity.ok(count);
+	}
 	
 	
 	

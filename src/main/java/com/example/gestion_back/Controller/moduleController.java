@@ -18,6 +18,7 @@ import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.moduleDto;
 import com.example.gestion_back.Dto.updateModFilDto;
 import com.example.gestion_back.Entities.Moduleee;
+import com.example.gestion_back.Repository.moduleRepo;
 import com.example.gestion_back.Services.moduleService;
 
 @RestController
@@ -26,6 +27,10 @@ public class moduleController {
 	
 	@Autowired
 	moduleService moduleserv;
+	
+	@Autowired
+	moduleRepo modulerepo;
+	
 	
 	@PostMapping("/add")
 	public ResponseEntity<String> addModule(@RequestBody moduleDto m){
@@ -123,6 +128,13 @@ public class moduleController {
 		}
 		return ResponseEntity.badRequest().body("Module or Filier not found");
 		
+	}
+	
+	//----------- countmodule T_T ----------
+	@GetMapping("nbrmodule")
+	public ResponseEntity<Long> getNbModule() {
+	   Long count = modulerepo.nbModule();
+	   return ResponseEntity.ok(count);
 	}
 	
 }
