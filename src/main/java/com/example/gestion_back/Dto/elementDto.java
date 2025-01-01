@@ -14,6 +14,10 @@ public class elementDto {
 		id=idd;nom=nomm;
 	}
 	
+	public elementDto(Long i,String n,String s) {
+		id=i;nom=n;modulecode=s;
+	}
+	
 	private Long id;
 	private String nom;
 	private double coiff;

@@ -2,9 +2,12 @@ package com.example.gestion_back.Services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import com.example.gestion_back.Entities.Moduleee;
 import com.example.gestion_back.Entities.Professeur;
 import com.example.gestion_back.Repository.elementRepo;
 import com.example.gestion_back.Repository.etudiantRepo;
+import com.example.gestion_back.Repository.etudiantelementRepo;
 import com.example.gestion_back.Repository.filierRepo;
 import com.example.gestion_back.Repository.moduleRepo;
 import com.example.gestion_back.Repository.profRepo;
@@ -37,6 +41,9 @@ public class elementService {
 	
 	@Autowired
 	moduleRepo modulerepo;
+	
+	@Autowired
+	etudiantelementRepo etelrepo;
 	
 	
 	
@@ -169,5 +176,39 @@ public class elementService {
 	    return list;
 	    
 	}
+	
+	public List<Map<String,Object>> getAllValidByID(String code) {
+		
+		List<elementDto> elements=etelrepo.elementvalid(code);
+		List<Map<String,Object>> list=new ArrayList<>();
+		for(elementDto i:elements) {
+			Map<String,Object> map=new HashMap<>();
+			Long all=etelrepo.CountAll(i.getId());
+			Long allvalid=etelrepo.isAllValid(i.getId());
+			if(all==allvalid) {
+				map.put("id", i.getId());
+				map.put("nom", i.getNom());
+				map.put("status",i.getModulecode());
+				list.add(map);
+			}
+		}
+		 List<Map<String, Object>> distinctMaps = new ArrayList<>();
+	        Set<Object> seenIds = new HashSet<>();
+
+	        // Parcourir la liste avec une boucle
+	        for (Map<String, Object> map : list) {
+	            Object id = map.get("id");
+	            if (!seenIds.contains(id)) {
+	                distinctMaps.add(map);
+	                seenIds.add(id);
+	            }
+	        }
+
+		return  distinctMaps;
+	}
+	
+	
+	
+	
 
 }

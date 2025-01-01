@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.gestion_back.Dto.elementDto;
 import com.example.gestion_back.Entities.Element;
+import com.example.gestion_back.Repository.etudiantelementRepo;
 import com.example.gestion_back.Repository.profRepo;
 import com.example.gestion_back.Services.elementService;
 
@@ -30,6 +31,9 @@ public class elementController {
 	
 	@Autowired
 	profRepo profrepo ;
+	
+	@Autowired
+	etudiantelementRepo etelrepo ;
 	
 	
 	@PostMapping("addElement")
@@ -93,4 +97,24 @@ public class elementController {
 	public ResponseEntity<List<elementDto>> getElementPofEtud(@PathVariable String code,@PathVariable String cin ){
 		 return ResponseEntity.ok(profrepo.getElementProfEtudiant(code, cin));
 	}
+	
+	@GetMapping("Allcount/{id}")
+	public ResponseEntity<Long> getAllcount(@PathVariable Long id){
+		return ResponseEntity.ok(etelrepo.CountAll(id));
+	}
+	@GetMapping("Allcountvalid/{id}")
+	public ResponseEntity<Long> getAllcountvalid(@PathVariable Long id){
+		return ResponseEntity.ok(etelrepo.isAllValid(id));
+	}
+	
+	@GetMapping("Allelementvalid/{code}")
+	public ResponseEntity<Object> getAllelemntvalid(@PathVariable String code){
+		List<Map<String,Object>> list=elemserv.getAllValidByID(code);
+		if(!list.isEmpty()) {
+			return ResponseEntity.ok(list);
+		}
+		return ResponseEntity.badRequest().body("no element valid yet");
+	}
+	
+	
 }
