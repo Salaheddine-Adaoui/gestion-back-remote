@@ -47,7 +47,6 @@ public class noteServices {
 		Optional<Element> el=elementrepo.findById(elid);
 		
 		
-		
 		if(et.isPresent() && el.isPresent()) {
 			double m=0;
 			Etudiant ett=et.get();
@@ -175,7 +174,31 @@ public class noteServices {
 	
 	}
 	
-
+	
+	public String validerNote(Long idnote) {
 		
-
+		Note note=noterepo.findById(idnote).orElseThrow(
+				()->new RuntimeException("note not found"));
+		note.setStatus("valid");
+		noterepo.save(note);
+	    Etudiant et=note.getEtudiant();
+	    Element el=note.getEvaluation().getElement();
+	    List<Note> notes_etudiant=noterepo.findByEtudiant(et);
+	    int count=0;
+	    for(Note not:notes_etudiant) {
+	    	if (!not.getStatus().equals("valid")) {
+	    		count=count+1;
+	    		
+	    	}
+	    }
+	    if(count==0) {
+	    	List<EtudiantElement> elet=etelrepo.findByEtudiantAndElement(et, el);
+	    	for(EtudiantElement elett:elet) {
+	    		elett.setStatus("valid");
+	    		etelrepo.save(elett);
+	    	}
+	    }
+		return "succes";
+	}
+	
 }

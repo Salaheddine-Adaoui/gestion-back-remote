@@ -13,4 +13,6 @@ public interface noteRepo extends JpaRepository<Note,Long>{
 	
 	boolean existsByEtudiantAndEvaluation(Etudiant etudiant, Evaluation evaluation);
 	List<Note> findByEtudiantAndEvaluation(Etudiant etudiant, Evaluation evaluation);
+	
+	List<Note> findByEtudiant(Etudiant et);
 }

@@ -26,4 +26,15 @@ public class noteController {
 		}
 		return ResponseEntity.badRequest().body("This element has not evaluation at the moment");
 	}
+	
+	@PostMapping("validatenote/{id}")
+	public ResponseEntity<String> validateNote(@PathVariable Long id){
+		String res=noteserv.validerNote(id);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok("Note validated whit acces");
+		}
+		return ResponseEntity.badRequest().body("This note not found");
+	}
+	
+	
 }
