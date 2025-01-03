@@ -2,6 +2,7 @@ package com.example.gestion_back.Controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.gestion_back.Dto.AjouteNoteDto;
 import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.NotetoafficheDto;
+import com.example.gestion_back.Dto.moduleDto;
+import com.example.gestion_back.Entities.Moduleee;
 import com.example.gestion_back.Repository.filierRepo;
 import com.example.gestion_back.Repository.noteRepo;
 import com.example.gestion_back.Services.noteServices;
@@ -54,5 +58,19 @@ public class noteController {
 		}
 		return ResponseEntity.badRequest().body("Not not found");
 	}
+	
+	@PutMapping("updatenote/{id}")
+	public ResponseEntity<String> updatenote(@PathVariable("id") Long id,@RequestBody NotetoafficheDto ntad ){
+		String res= noteserv.updateNote(id, ntad);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok("Note updated with succes");
+		}
+		return ResponseEntity.badRequest().body("Note have a proble with update");
+		
+	}
+	
+	
+	
+	
 	
 }

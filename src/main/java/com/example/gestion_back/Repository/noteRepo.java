@@ -19,7 +19,7 @@ public interface noteRepo extends JpaRepository<Note,Long>{
 	List<Note> findByEtudiantAndEvaluation(Etudiant etudiant, Evaluation evaluation);
 	
 	
-	@Query("select new com.example.gestion_back.Dto.NotetoafficheDto(n.id , e.nom , e.prenom , n.notee , n.status ,n.presence , ev.type) from Etudiant e join e.notes n join n.evaluation ev join ev.element el join el.prof p where p.code=:c ")
+	@Query("select new com.example.gestion_back.Dto.NotetoafficheDto(n.id , e.nom , e.prenom, el.nom , n.notee , n.status ,n.presence , ev.type) from Etudiant e join e.notes n join n.evaluation ev join ev.element el join el.prof p where p.code=:c ")
 	List<NotetoafficheDto> getNotetoaffiche(@Param("c") String code);
 
 }

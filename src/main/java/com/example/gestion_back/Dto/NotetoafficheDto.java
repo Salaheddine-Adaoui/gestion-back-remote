@@ -14,6 +14,8 @@ public class NotetoafficheDto {
 	
 	private String nameetu ;
 	private String prenometu ;
+	
+	private String nomel ;
     
 	
 	private double notee;

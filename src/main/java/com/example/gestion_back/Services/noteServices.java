@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.gestion_back.Dto.AjouteNoteDto;
+import com.example.gestion_back.Dto.NotetoafficheDto;
+import com.example.gestion_back.Dto.moduleDto;
 import com.example.gestion_back.Entities.Element;
 import com.example.gestion_back.Entities.Etudiant;
 import com.example.gestion_back.Entities.EtudiantElement;
 import com.example.gestion_back.Entities.Evaluation;
+import com.example.gestion_back.Entities.Moduleee;
 import com.example.gestion_back.Entities.Note;
 import com.example.gestion_back.Repository.elementRepo;
 import com.example.gestion_back.Repository.etudiantRepo;
@@ -188,7 +191,23 @@ public class noteServices {
 		return "failed";
 	}
 	
-
+	public String updateNote(Long id , NotetoafficheDto ntad) {
+		Optional<Note> n = noterepo.findById(id);
 		
+		if (n.isPresent()) {
+			Note no =  n.get();
+			no.setNotee(ntad.getNotee());
+			no.setPresence(ntad.getPresence());
+			no.setStatus(ntad.getStatus());
+			
+			noterepo.save(no);
+			return "succes";			
+		}
+		return "failed";
+		
+	}
+	
+	
+
 
 }
