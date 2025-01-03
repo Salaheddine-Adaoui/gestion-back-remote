@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.example.gestion_back.Dto.ElementsProfDto;
 import com.example.gestion_back.Dto.PiechartProfDto;
 import com.example.gestion_back.Dto.elementDto;
+import com.example.gestion_back.Dto.listNoteProfDto;
 import com.example.gestion_back.Entities.Professeur;
 
 @Repository
@@ -35,6 +36,11 @@ public interface profRepo extends JpaRepository<Professeur,String> {
         	  
           @Query("select count(p) from Professeur p")
       	  Long nbProf();
+          
+          @Query("select new com.example.gestion_back.Dto.listNoteProfDto(e.cin , e.nom , e.prenom , el.nom ,et.elemNote, p.nom , p.prenom)"+
+          " from Professeur p join p.element el join etudiantElements et join et.etudiant e "+
+        		  "where p.code=:c and el.id=:id")
+          List<listNoteProfDto> getNoteElement(@Param("c") String code,@Param("id") Long id);
         	  
           
           

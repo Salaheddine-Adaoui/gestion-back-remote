@@ -175,6 +175,19 @@ public class noteServices {
 	
 	}
 	
+	public String deleteNote(Long id) {
+		
+		Optional<Note> n=noterepo.findById(id);
+		
+		if(n.isPresent()) {
+			Note no = n.get();
+			noterepo.delete(no);
+
+			return "succes";
+		}
+		return "failed";
+	}
+	
 
 		
 

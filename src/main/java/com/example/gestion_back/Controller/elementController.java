@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.gestion_back.Dto.elementDto;
+import com.example.gestion_back.Dto.listNoteProfDto;
 import com.example.gestion_back.Entities.Element;
 import com.example.gestion_back.Repository.etudiantelementRepo;
 import com.example.gestion_back.Repository.profRepo;
@@ -116,5 +117,12 @@ public class elementController {
 		return ResponseEntity.badRequest().body("no element valid yet");
 	}
 	
+	@GetMapping("getnoteElment/{code}/{id}")
+	public ResponseEntity< List<listNoteProfDto>> getnoteElement(@PathVariable String code,@PathVariable Long id){
+		
+		 List<listNoteProfDto> list = profrepo.getNoteElement(code, id);
+			return ResponseEntity.ok(list);
+		
+	}
 	
 }
