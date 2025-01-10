@@ -86,17 +86,21 @@ public class adminService {
 	// find admin by id 
 	public Map<String,Object> findAdmin(Long id) {
 		HashMap<String, Object> map=new HashMap<>();
-		Optional<Admin> admin=adminrepo.findById(id);
-		if(admin.isPresent()) {
-			Admin ad=admin.get();
+		Optional<Admin> prof=adminrepo.findById(id);
+		if(prof.isPresent()) {
+			Admin ad=prof.get();
 			Compte c=ad.getCompte();
-			
-			
-			map.put("admin",ad);
-			map.put("compte", c);
+	        
+	        map.put("code", ad.getId());
+	        map.put("nom", ad.getNom());
+	        map.put("prenom", ad.getPrenom());
+	        
+	        Compte compte = ad.getCompte();
+	        map.put("email", compte.getEmail());
+	        map.put("image", compte.getImage());
 			return map;
 		}
-		map.put("error", "ce id n'exist pas");
+		map.put("error", "ce code n'exist pas");
 		return map;
 	}
 	

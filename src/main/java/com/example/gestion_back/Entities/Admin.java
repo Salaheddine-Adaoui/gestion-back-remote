@@ -18,7 +18,7 @@ public class Admin {
     private String prenom;
     
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="compte_id")
     private Compte compte;
    
