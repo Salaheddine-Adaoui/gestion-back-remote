@@ -46,8 +46,8 @@ public class userServices {
 		return alluser;
 	}
 	
-	public Map<String,String> findProflogin(String email){
-		Map<String,String> map=new HashMap<>();
+	public Map<String,Object> findProflogin(String email){
+		Map<String,Object> map=new HashMap<>();
 		Compte compte=findcurrentLogin(email);
 		if(compte!=null) {
 			Professeur prof=compte.getProf();
@@ -56,6 +56,7 @@ public class userServices {
 				map.put("email", compte.getEmail());
 				map.put("Role", compte.getRole());
 				map.put("nom", admin.getNom());
+				map.put("id", admin.getId());
 				map.put("prenom", admin.getPrenom());
 				map.put("image", compte.getImage());
 				return map;

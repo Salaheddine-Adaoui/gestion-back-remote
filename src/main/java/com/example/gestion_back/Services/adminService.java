@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.gestion_back.Dto.adminDto;
 import com.example.gestion_back.Dto.profDto;
@@ -36,6 +37,8 @@ public class adminService {
 	// creation de admin avec creation auto de compte 
 	public String saveAdmin(adminDto admindto) throws IOException {
 		
+		
+		
 		Compte c=new Compte();
 		c.setEmail(admindto.getEmail());
 		c.setPassword(bCryptPasswordEncod.encode(admindto.getPassword()));
@@ -56,7 +59,7 @@ public class adminService {
 	}
 		
 	// update admin 
-	public String updateProf(Long id,adminDto admindto) throws IOException {
+	public String updateAdmin(Long id,adminDto admindto) throws IOException {
 			
 		    Optional<Admin> admin=adminrepo.findById(id);
 			
@@ -67,14 +70,9 @@ public class adminService {
 				
 				Compte c=toupdate.getCompte();
 				c.setEmail(admindto.getEmail());
-				c.setPassword(bCryptPasswordEncod.encode(admindto.getPassword()));
-				c.setImage(Base64.getEncoder().encodeToString(admindto.getFile().getBytes()));
-				c.setRole("PROF");
-				
+				c.setRole("ADMIN");
 				Compte compteupdated=compterepo.save(c);
-				
 				toupdate.setCompte(compteupdated);
-				
 				adminrepo.save(toupdate);
 				
 				return "succes";
@@ -86,17 +84,21 @@ public class adminService {
 	// find admin by id 
 	public Map<String,Object> findAdmin(Long id) {
 		HashMap<String, Object> map=new HashMap<>();
-		Optional<Admin> admin=adminrepo.findById(id);
-		if(admin.isPresent()) {
-			Admin ad=admin.get();
+		Optional<Admin> prof=adminrepo.findById(id);
+		if(prof.isPresent()) {
+			Admin ad=prof.get();
 			Compte c=ad.getCompte();
-			
-			
-			map.put("admin",ad);
-			map.put("compte", c);
+	        
+	        map.put("code", ad.getId());
+	        map.put("nom", ad.getNom());
+	        map.put("prenom", ad.getPrenom());
+	        
+	        Compte compte = ad.getCompte();
+	        map.put("email", compte.getEmail());
+	        map.put("image", compte.getImage());
 			return map;
 		}
-		map.put("error", "ce id n'exist pas");
+		map.put("error", "ce code n'exist pas");
 		return map;
 	}
 	
@@ -116,6 +118,34 @@ public class adminService {
 			return "succes";
 		}
 		return "failed";
+	}
+	
+	public String updatePasswordAdmin(Long id,String password) {
+		
+		Optional<Admin> admin=adminrepo.findById(id);
+		if(admin.isPresent()) {
+			Admin toupdate=admin.get();
+			Compte c=toupdate.getCompte();
+			
+			c.setPassword(bCryptPasswordEncod.encode(password));
+			compterepo.save(c);
+			return "succes";
+		}
+		return "failed";
+	}
+	
+	public String addImage(Long id,MultipartFile file) throws IOException {
+		
+		Optional<Admin> admin=adminrepo.findById(id);
+		if(admin.isPresent()) {
+			Admin toupdate=admin.get();
+			Compte c=toupdate.getCompte();
+			c.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+			compterepo.save(c);
+			return "succes";
+		}
+		return "failed";
+		
 	}
 	
 }
