@@ -155,8 +155,8 @@ public class userController {
 	
 
 	@GetMapping("getcurrentprof/{email}")
-	public ResponseEntity<Map<String,String>> getCuurentprof(@PathVariable String email){
-		Map<String,String> prof=userserv.findProflogin(email);
+	public ResponseEntity<Map<String,Object>> getCuurentprof(@PathVariable String email){
+		Map<String,Object> prof=userserv.findProflogin(email);
 		if(prof.containsKey("error")) {
 			return  ResponseEntity.badRequest().body(prof);
 		}
