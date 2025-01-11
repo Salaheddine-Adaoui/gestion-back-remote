@@ -45,6 +45,14 @@ public class etudiantController {
 		return ResponseEntity.ok(etudiantserv.getAllEtudiants());
 	}
 	
+	//-----------------  to update in future + add service to it ------------------
+	@GetMapping("allEtudiantsbyprof/{code}")
+	public ResponseEntity<List<etudiantDto>> findallbyprof(@PathVariable String code){
+		return ResponseEntity.ok(etudiantserv.getetudiantbyprof(code));
+	}
+	
+	//-----------------------------------------------------------------------------
+	
 	@GetMapping("cin/{cin}")
 	public ResponseEntity<Object> findbuid(@PathVariable String  cin){
 		Etudiant e = etudiantserv.findEtudiant(cin);

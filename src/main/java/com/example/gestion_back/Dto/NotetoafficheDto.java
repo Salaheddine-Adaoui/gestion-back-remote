@@ -12,6 +12,7 @@ public class NotetoafficheDto {
 	
 	private Long id ;
 	
+	private String cinetu ;
 	private String nameetu ;
 	private String prenometu ;
 	

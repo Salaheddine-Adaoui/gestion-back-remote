@@ -19,6 +19,7 @@ public class etudiantDto {
     private String telephone;
     private Long filid;
     private String filnom;
+    
 	
 
 }

@@ -20,6 +20,7 @@ import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.NotetoafficheDto;
 import com.example.gestion_back.Dto.moduleDto;
 import com.example.gestion_back.Entities.Moduleee;
+import com.example.gestion_back.Entities.Note;
 import com.example.gestion_back.Repository.filierRepo;
 import com.example.gestion_back.Repository.noteRepo;
 import com.example.gestion_back.Services.noteServices;
@@ -43,6 +44,7 @@ public class noteController {
 		return ResponseEntity.badRequest().body("This element has not evaluation at the moment");
 	}
 	
+
 	@GetMapping("getallnote/{code}")
 	public ResponseEntity<List<NotetoafficheDto>>getNotetoaffiche(@PathVariable("code") String code) {
 		
@@ -69,8 +71,25 @@ public class noteController {
 		
 	}
 	
+	@PostMapping("validatenote/{id}")
+	public ResponseEntity<String> validateNote(@PathVariable Long id){
+		String res=noteserv.validerNote(id);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok("Note validated whit acces");
+		}
+		return ResponseEntity.badRequest().body("This note not found");
+	}
 	
 	
+	@GetMapping("/{id}")
+    public ResponseEntity<NotetoafficheDto> getNoteById(@PathVariable Long id) {
+        NotetoafficheDto noteDto = noteserv.getNoteById(id);
+        if (noteDto != null) {
+            return ResponseEntity.ok(noteDto);
+        }
+        return ResponseEntity.status(404).body(null); 
+    }
+
 	
-	
+
 }

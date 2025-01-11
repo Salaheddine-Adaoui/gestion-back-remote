@@ -206,13 +206,5 @@ public class elementService {
 
 		return  distinctMaps;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

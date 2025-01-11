@@ -147,5 +147,27 @@ public class etudiantService {
 		}
 		return "failed";
 	}
+	
+	
+	//-----------------------------------------------------//
+	
+	public List<etudiantDto> getetudiantbyprof(String code) {
+		
+		List<etudiantDto> etudiants = etudiantrepo.getetudiantbyprof(code);
+		
+	    return etudiants.stream()
+	        .map(etudiant -> new etudiantDto(
+	            etudiant.getCin(),
+	            etudiant.getNom(),
+	            etudiant.getPrenom(),
+	            etudiant.getEmail(),
+	            etudiant.getTelephone(),
+	            etudiant.getFilid(),
+	            etudiant.getFilnom()
+	        ))
+	        .distinct()
+	        .collect(Collectors.toList());
+		
+	}
 
 }
