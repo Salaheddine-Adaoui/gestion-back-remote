@@ -20,7 +20,7 @@ public class Evaluation {
    private String type;
    private double coiff;
 
-    @OneToMany(mappedBy = "evaluation")
+    @OneToMany(mappedBy = "evaluation",cascade=CascadeType.ALL)
     private List<Note> notes;
 
     @ManyToOne

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.gestion_back.Dto.ElementsProfDto;
 import com.example.gestion_back.Dto.PiechartProfDto;
@@ -195,6 +197,27 @@ public class userController {
         Long count = profrepo.nbProf();
         return ResponseEntity.ok(count);
     }
+	
+	// update password de compte
+	@PostMapping("user/updatepassword")
+	ResponseEntity<String>  updatePasswordAdmin(@RequestParam("id") Long id,@RequestParam("password") String pass) {
+		String res=adminserv.updatePasswordAdmin(id, pass);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok().body("Password updated with success");
+		}else {
+			return ResponseEntity.badRequest().body("Compte not found");
+		}
+	}
+	
+	@PostMapping("user/updateImage")
+	ResponseEntity<String>  updateImageAdmin(@RequestParam("id") Long id,@RequestBody MultipartFile image) throws IOException {
+		String res=adminserv.addImage(id, image);
+		if(res.equals("succes")) {
+			return ResponseEntity.ok().body("profile image updated with success");
+		}else {
+			return ResponseEntity.badRequest().body("Compte not found");
+		}
+	}
 	
 	
 	

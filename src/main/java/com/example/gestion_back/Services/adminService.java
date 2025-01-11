@@ -126,8 +126,9 @@ public class adminService {
 		if(admin.isPresent()) {
 			Admin toupdate=admin.get();
 			Compte c=toupdate.getCompte();
-			
-			c.setPassword(bCryptPasswordEncod.encode(password));
+			if(password.length()>0) {
+				c.setPassword(bCryptPasswordEncod.encode(password));
+			}
 			compterepo.save(c);
 			return "succes";
 		}

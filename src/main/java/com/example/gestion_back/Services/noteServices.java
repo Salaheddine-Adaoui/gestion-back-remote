@@ -198,7 +198,7 @@ public class noteServices {
 			Note no =  n.get();
 			no.setNotee(ntad.getNotee());
 			no.setPresence(ntad.getPresence());
-			no.setStatus(ntad.getStatus());
+			
 			
 			noterepo.save(no);
 			return "succes";			
