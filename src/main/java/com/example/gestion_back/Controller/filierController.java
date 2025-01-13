@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.gestion_back.Dto.EtudiantPerFilierChart;
 import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Dto.filierDto;
 import com.example.gestion_back.Dto.moduleDto;
@@ -99,6 +100,12 @@ public class filierController {
 		 Long count = filierrepo.nbFilier();
 		 return ResponseEntity.ok(count);
 	}
+	
+	@GetMapping("filierperetudiant")
+	public ResponseEntity<List<EtudiantPerFilierChart>> etudiantPerFilier() {
+		return ResponseEntity.ok(filierrepo.etudiantPerFilier());
+	}
+	
 	
 	
 	

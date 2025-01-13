@@ -71,6 +71,7 @@ public class noteServices {
 					double not=ajoutdto.getNotecc()*ee.getCoiff();
 					m=m+not;
 					note.setNotee(ajoutdto.getNotecc());
+					note.setStatus("pending");
 					note.setEvaluation(ee);
 					if(ajoutdto.getPresenceCC().equals("P")) {
 						note.setPresence("present");
@@ -98,6 +99,7 @@ public class noteServices {
 					double not=ajoutdto.getNotetp()*ee.getCoiff();
 					m=m+not;
 					note.setNotee(ajoutdto.getNotetp());
+					note.setStatus("pending");
 					note.setEvaluation(ee);
 					if(ajoutdto.getPresenceTP().equals("P")) {
 						note.setPresence("present");
@@ -122,6 +124,7 @@ public class noteServices {
 						note =new Note();
 					}
 					note.setEtudiant(ett);
+					note.setStatus("pending");
 					double not=ajoutdto.getNotepres()*ee.getCoiff();
 					m=m+not;
 					note.setNotee(ajoutdto.getNotepres());
@@ -150,6 +153,7 @@ public class noteServices {
 					}
 					note.setEtudiant(ett);
 					double not=ajoutdto.getNoteproj()*ee.getCoiff();
+					note.setStatus("pending");
 					m=m+not;
 					note.setNotee(ajoutdto.getNoteproj());
 					note.setEvaluation(ee);
