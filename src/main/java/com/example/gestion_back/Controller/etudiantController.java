@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.gestion_back.Dto.EtudiantperYearChart;
 import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Entities.Etudiant;
 import com.example.gestion_back.Repository.etudiantRepo;
@@ -98,6 +99,10 @@ public class etudiantController {
 		return ResponseEntity.ok(count);
 	}
 	
+	@GetMapping("/etudiantPerYear")
+	public ResponseEntity<List<EtudiantperYearChart>> getNbEtudiantparYear() {
+		return ResponseEntity.ok(etudiantserv.etudiantchartyear());
+	}
 
 }
  

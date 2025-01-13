@@ -1,5 +1,6 @@
 package com.example.gestion_back.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.gestion_back.Dto.EtudiantperYearChart;
 import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Entities.Element;
 import com.example.gestion_back.Entities.Etudiant;
@@ -168,6 +170,24 @@ public class etudiantService {
 	        .distinct()
 	        .collect(Collectors.toList());
 		
+	}
+	
+	public List<EtudiantperYearChart> etudiantchartyear() {
+	   
+	    List<Etudiant> etudiants = etudiantrepo.findAll(); 
+	    List<EtudiantperYearChart> chartList = new ArrayList<>();
+
+	    // Regrouper les étudiants par année d'inscription
+	
+		Map<Integer, Long> yearCountMap = etudiants.stream()
+	            .collect(Collectors.groupingBy(e -> e.getDat_inscription().getYear()+1900, Collectors.counting()));
+
+	    // Transformer la map en une liste de EtudiantperYearChart
+	    for (Map.Entry<Integer, Long> entry : yearCountMap.entrySet()) {
+	        chartList.add(new EtudiantperYearChart(entry.getKey(), entry.getValue()));
+	    }
+
+	    return chartList;
 	}
 
 }

@@ -15,7 +15,6 @@ public class Note {
     private Long id;
     double notee;
     private String status="pending";
-
     private String presence;
 
     @ManyToOne

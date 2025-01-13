@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.gestion_back.Dto.EtudiantPerFilierChart;
 import com.example.gestion_back.Dto.etudiantDto;
 import com.example.gestion_back.Entities.Filier;
 
@@ -24,6 +25,9 @@ public interface filierRepo extends JpaRepository<Filier,Long> {
 	List<etudiantDto> getFilierEtudiants(@Param("code") Long code);
 	//------------------------------//
 	
+	@Query("select new  com.example.gestion_back.Dto.EtudiantPerFilierChart(f.nom,f.niveau,count(f)) from Filier f  join f.etudiants e  "+
+			"group by f.nom,f.niveau ")
+	List<EtudiantPerFilierChart> etudiantPerFilier();
 	
 }
 
