@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.gestion_back.Dto.ModuleCountByFilierDto;
 import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Entities.Filier;
 import com.example.gestion_back.Entities.Moduleee;
@@ -19,6 +20,14 @@ public interface contenirRepo extends JpaRepository<Moduleee,String> {
     List<ModuleFilierDto> findModuleFilier();
     
     
+    @Query("SELECT new com.example.gestion_back.Dto.ModuleCountByFilierDto(CONCAT(f.nom, ' ', f.niveau), COUNT(m)) " +
+    	       "FROM Moduleee m LEFT JOIN m.filier f " +
+    	       "GROUP BY f.nom, f.niveau")
+    	List<ModuleCountByFilierDto> findModuleCountByFilier();
+
+    
+    
+
     
    
 

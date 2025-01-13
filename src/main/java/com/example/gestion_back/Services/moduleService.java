@@ -1,4 +1,5 @@
 package com.example.gestion_back.Services;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.gestion_back.Dto.ModuleCountByFilierDto;
 import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.moduleDto;
 import com.example.gestion_back.Dto.updateModFilDto;
@@ -189,5 +191,26 @@ public class moduleService {
 		return "failed";
 	}
 	
+	
+	
+	
+	// =============== Module Group By Filier ===================
+	public Map<String, List<ModuleCountByFilierDto>> getModulesGroupedByFiliere() {
+        List<ModuleCountByFilierDto> modules = contenirrepo.findModuleCountByFilier();
+
+        // Create a map to group by filiere
+        Map<String, List<ModuleCountByFilierDto>> groupedModules = new HashMap<>();
+
+        for (ModuleCountByFilierDto module : modules) {
+            // Split filierNiveau into filiere and niveau
+            String[] parts = module.getFilierNiveauNom().split(" ");
+            String filiere = parts[0];
+
+            // Add to the grouped map
+            groupedModules.computeIfAbsent(filiere, k -> new ArrayList<>()).add(module);
+        }
+
+        return groupedModules;
+    }
 	
 }

@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.gestion_back.Dto.ModuleCountByFilierDto;
 import com.example.gestion_back.Dto.ModuleFilierDto;
 import com.example.gestion_back.Dto.moduleDto;
 import com.example.gestion_back.Dto.updateModFilDto;
 import com.example.gestion_back.Entities.Moduleee;
+import com.example.gestion_back.Repository.contenirRepo;
 import com.example.gestion_back.Repository.moduleRepo;
 import com.example.gestion_back.Services.moduleService;
 
@@ -30,6 +32,9 @@ public class moduleController {
 	
 	@Autowired
 	moduleRepo modulerepo;
+	
+	@Autowired
+	contenirRepo contenirrepo;
 	
 	
 	@PostMapping("/add")
@@ -136,5 +141,11 @@ public class moduleController {
 	   Long count = modulerepo.nbModule();
 	   return ResponseEntity.ok(count);
 	}
+	
+	//============= Module Count by Filier =================
+	@GetMapping("modulecountbyfilier")
+	public Map<String, List<ModuleCountByFilierDto>> getModulesGroupedByFiliere() {
+        return moduleserv.getModulesGroupedByFiliere();
+    }
 	
 }
