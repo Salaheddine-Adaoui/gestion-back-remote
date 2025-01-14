@@ -2,6 +2,7 @@ package com.example.gestion_back.Entities;
 
 import java.util.List;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -23,12 +24,16 @@ public class Professeur {
     private String specialite;
     private String tel;
     private String adresse;
+    private boolean enabled;
 
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="compte_id")
     @JsonBackReference
     private Compte compte;
+    
+    @OneToOne(mappedBy="prof",cascade = CascadeType.ALL)
+    private VerificationToken token;
     
     @OneToMany(mappedBy="prof",cascade = CascadeType.ALL)
     @JsonManagedReference

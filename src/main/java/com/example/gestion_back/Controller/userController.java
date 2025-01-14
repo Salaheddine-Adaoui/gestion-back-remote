@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ import com.example.gestion_back.Services.profService;
 import com.example.gestion_back.Services.userServices;
 import com.example.gestion_back.Entities.Professeur;
 import com.example.gestion_back.Repository.profRepo;
+import com.example.gestion_back.Repository.userRepo;
 import com.example.gestion_back.Entities.Admin;
 
 
@@ -62,6 +64,9 @@ public class userController {
 	jwtUtils jwt_serv;
 	
 	@Autowired
+	userRepo userrepo;
+	
+	@Autowired
 	AuthenticationManager authenticationMnager;
 	
 	@GetMapping("user/hello")
@@ -74,17 +79,26 @@ public class userController {
 		try {
 			   Authentication auth=authenticationMnager.authenticate(new
 					    UsernamePasswordAuthenticationToken(a.getEmail(),a.getPassword()));
-				        
 			            CustomUserDetails userDetailss = (CustomUserDetails) auth.getPrincipal();
 					
 					    	String jt= jwt_serv.generateToken(serv.loadUserByUsername(a.getEmail()));
-					    	Map<String,String> map=new HashMap();
+					    	Map<String,Object> map=new HashMap();
 					    	map.put("token", jt);
 					    	map.put("Email", jwt_serv.extractUsername(jt));
 					    	map.put("Role", jwt_serv.extractRole(jt));
+					    	Optional<Compte> compte=userrepo.findByEmail(jwt_serv.extractUsername(jt));
+					    	if(compte.isPresent()) {
+					    		Compte c=compte.get();
+					    		Professeur prof=c.getProf();
+					    		if(prof!=null) {
+					    			map.put("enabled", prof.isEnabled());
+					    		}else {
+					    			map.put("enabled", true);
+					    		}
+					    		
+					    	}
 					    	return ResponseEntity.ok(map);
-					    
-					    
+	    
 		   }catch (BadCredentialsException ex) {
 	            return ResponseEntity.status(401).body(Map.of(
 	                    "success", false,
@@ -98,6 +112,12 @@ public class userController {
 	                ));
 	            }
 	}
+	
+	@GetMapping("confirm")
+    public ResponseEntity<String> confirmUser(@RequestParam("token") String token) {
+        profserv.confirmUser(token);
+        return ResponseEntity.ok("User confirmed successfully.");
+    }
 	
 	@PostMapping("newadmin")
 	ResponseEntity<String>  addAdmin(@ModelAttribute adminDto u) throws IOException {

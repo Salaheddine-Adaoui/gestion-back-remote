@@ -3,22 +3,30 @@ package com.example.gestion_back.Services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.example.gestion_back.Dto.profDto;
 import com.example.gestion_back.Entities.Compte;
 import com.example.gestion_back.Entities.Professeur;
+import com.example.gestion_back.Entities.VerificationToken;
+import com.example.gestion_back.Repository.VerificationTokenRepo;
 import com.example.gestion_back.Repository.profRepo;
 import com.example.gestion_back.Repository.userRepo;
 
 @Service
 public class profService {
+	
+	@Autowired
+    private VerificationTokenRepo tokenRepository;
 	
 	@Autowired
 	userRepo userrepo;
@@ -31,6 +39,9 @@ public class profService {
 	
 	@Autowired
 	userRepo compterepo ;
+	
+	@Autowired
+	mailService mailServ;
 	
 	@Autowired
 	private PasswordEncoder bCryptPasswordEncod;
@@ -75,6 +86,8 @@ public class profService {
 		prof.setCompte(c);
 		
 		profrepo.save(prof);
+		
+		sendConfirmationEmail(prof);
 		
 		return "succes";
 	}
@@ -184,5 +197,34 @@ public class profService {
 	    
 	    return resultList;
 	}
+	
+	
+	// partie de confirmation de registration par email
+	
+		private void sendConfirmationEmail(Professeur prof) {
+	        String token = UUID.randomUUID().toString();
+	        VerificationToken verificationToken = new VerificationToken();
+	        verificationToken.setToken(token);
+	        verificationToken.setProf(prof);
+	        verificationToken.setExpiryDate(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)); // 24 hours expiry
+	        tokenRepository.save(verificationToken);
 
+	        String confirmationUrl = "http://localhost:9099/confirm?token=" + token;
+	        mailServ.sendEmail(prof.getCompte().getEmail(), "Confirmation Email", confirmationUrl);
+	    }
+
+	    public void confirmUser(String token) {
+	        VerificationToken verificationToken = tokenRepository.findByToken(token);
+	        if (verificationToken != null && verificationToken.getExpiryDate().after(new Date())) {
+	            Professeur prof = verificationToken.getProf();
+	            prof.setEnabled(true);
+	            profrepo.save(prof);
+	        }
+	    }
+	
 }
+	
+	
+	
+
+

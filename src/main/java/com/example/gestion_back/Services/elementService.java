@@ -201,9 +201,8 @@ public class elementService {
 	            if (!seenIds.contains(id)) {
 	                distinctMaps.add(map);
 	                seenIds.add(id);
-	            }
 	        }
-
+	     }
 		return  distinctMaps;
 	}
 
