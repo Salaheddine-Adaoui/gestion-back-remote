@@ -166,16 +166,16 @@ public class noteServices {
 					noterepo.save(note);
 				}
 				
-				List<EtudiantElement> eeee=etelrepo.findByEtudiantAndElement(ett, ell);
-				for(EtudiantElement i:eeee) {
-					i.setElemNote(m);
-					i.setStatus("pending");
-					etelrepo.save(i);
-				}
 				
-				return "succes";
+			}
+			List<EtudiantElement> eeee=etelrepo.findByEtudiantAndElement(ett, ell);
+			for(EtudiantElement i:eeee) {
+				i.setElemNote(m);
+				i.setStatus("pending");
+				etelrepo.save(i);
 			}
 			
+			return "succes";
 		}
 		return "failed";
 	
@@ -199,12 +199,31 @@ public class noteServices {
 		Optional<Note> n = noterepo.findById(id);
 		
 		if (n.isPresent()) {
-			Note no =  n.get();
+			Note no =n.get();
 			no.setNotee(ntad.getNotee());
 			no.setPresence(ntad.getPresence());
-			
+			no.setStatus("pending");
 			
 			noterepo.save(no);
+			
+			Evaluation ev=no.getEvaluation();
+			Element e=ev.getElement();
+			Etudiant et=no.getEtudiant();
+			
+			List<Note> notes=noterepo.findByEtudiantAndEvaluation(et, ev);
+			Double m=0D;
+			for (Note i:notes) {
+				m=(m+(i.getNotee()*i.getEvaluation().getCoiff()));
+			}
+			
+			
+			List<EtudiantElement> eeee=etelrepo.findByEtudiantAndElement(et,e);
+			for(EtudiantElement i:eeee) {
+				i.setElemNote(m);
+				i.setStatus("pending");
+				etelrepo.save(i);
+			}
+
 			return "succes";			
 		}
 		return "failed";
