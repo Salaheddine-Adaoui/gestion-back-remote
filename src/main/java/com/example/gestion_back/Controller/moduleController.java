@@ -99,7 +99,7 @@ public class moduleController {
 	
 	@GetMapping("Byid/{code}")
 	public ResponseEntity<Object> findbuid(@PathVariable String  code){
-		Moduleee m=moduleserv.findModule(code);
+		Map<String,String> m=moduleserv.findModule(code);
 		if(m!=null) {
 			return ResponseEntity.ok(m);
 		}

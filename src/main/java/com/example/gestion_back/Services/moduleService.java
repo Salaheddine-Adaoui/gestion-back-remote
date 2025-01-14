@@ -154,13 +154,15 @@ public class moduleService {
 		}
 	
 	// find modeule pa code
-	public Moduleee findModule(String code) {
+	public Map<String,String> findModule(String code) {
 		
 		Optional<Moduleee> module=modulerepo.findByCode(code);
 		if(module.isPresent()) {
 			Moduleee md=module.get();
-			
-			return md;
+			Map<String,String> map=new HashMap<>();
+			map.put("code",md.getCode());
+			map.put("nom", md.getNom());		
+			return map;
 		}
 		return null;
 	}
