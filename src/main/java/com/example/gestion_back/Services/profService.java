@@ -185,6 +185,7 @@ public class profService {
 	        map.put("specialite", prof.getSpecialite());
 	        map.put("tel", prof.getTel());
 	        map.put("adresse", prof.getAdresse());
+	        map.put("enabled", prof.isEnabled());
 	        
 	        // Add Compte data (with the account ID)
 	        Compte compte = prof.getCompte();
@@ -209,7 +210,11 @@ public class profService {
 	        verificationToken.setExpiryDate(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)); // 24 hours expiry
 	        tokenRepository.save(verificationToken);
 
-	        String confirmationUrl = "http://localhost:9099/confirm?token=" + token;
+	        String confirmationUrl ="bonjour monsieur "+prof.getNom()+" "+prof.getPrenom()+
+	        		"\nVous avez été enregistré en tant que professeur dans notre système."+
+	        		"\nvoici lien s dessous pour confirmer ton enregistrement"+
+	        		"\nhttp://localhost:9099/confirm?token=" + token
+	        		+"\nCordialement,\nL'équipe Admin.";
 	        mailServ.sendEmail(prof.getCompte().getEmail(), "Confirmation Email", confirmationUrl);
 	    }
 
